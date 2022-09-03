@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const String appNamePrefix = "bq";
+const String appNamePrefix = "Smart Inventory System ";
 Color bgColor = const Color(0xffcae8ff);
 Color iconOnLight = const Color(0xff050a30);
 Color buttonColor = const Color(0xff050a30);

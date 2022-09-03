@@ -44,37 +44,119 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       endDrawer: const Sidebar(),
       body: Container(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(1),
         width: MediaQuery.of(context).size.width,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Column(
+            // Column(
+            //   children: [
+            //     Image.asset(
+            //       "assets/logo.png",
+            //       height: 180,
+            //       width: 180,
+            //     ),
+            //     const SizedBox(height: 10),
+            //     Text(
+            //       appName,
+            //       style: TextStyle(
+            //         color: darkTextColor,
+            //         fontSize: 24,
+            //       ),
+            //     ),
+            //     const SizedBox(height: 5),
+            //     Text(
+            //       "Scanner | Generator",
+            //       style: TextStyle(
+            //         color: lightTextColor,
+            //         fontSize: 20,
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Image.asset(
-                  "assets/logo.png",
-                  height: 180,
-                  width: 180,
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  appName,
-                  style: TextStyle(
-                    color: darkTextColor,
-                    fontSize: 24,
+
+                Text("GOOD MORNING SIR",style: TextStyle(fontWeight: FontWeight.bold),),
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration:  BoxDecoration(
+                    border: Border.all(
+                        width: 4,
+                        color: Theme.of(
+                            context)
+                            .scaffoldBackgroundColor),
+                    boxShadow: [
+                      BoxShadow(
+                          spreadRadius: 2,
+                          blurRadius: 10,
+                          color: Colors
+                              .black
+                              .withOpacity(
+                              0.1),
+                          offset:
+                          const Offset(
+                              0, 10))
+                    ],
+                    shape:
+                    BoxShape.circle,
+                    // image: const DecorationImage(
+                    //     fit: BoxFit.cover,
+                    //     image: NetworkImage(
+                    //       "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
+                    //     )
+                    // )
                   ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  "Scanner | Generator",
-                  style: TextStyle(
-                    color: lightTextColor,
-                    fontSize: 20,
-                  ),
-                ),
-              ],
-            ),
+
+                )
+                      //: null,
+
+
+
+            ]),
+
+            Column(
+
+              children:[
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 300,
+               decoration:  BoxDecoration(
+                  border: Border.all(
+                                                          width: 4,
+                                                          color: Theme.of(
+                                                              context)
+                                                              .scaffoldBackgroundColor),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                            spreadRadius: 2,
+                                                            blurRadius: 10,
+                                                            color: Colors
+                                                                .black
+                                                                .withOpacity(
+                                                                0.1),
+                                                            offset:
+                                                            const Offset(
+                                                                0, 10))
+                                                      ],
+                                                      shape:
+                                                      BoxShape.rectangle,
+                                                      // image: const DecorationImage(
+                                                      //     fit: BoxFit.cover,
+                                                      //     image: NetworkImage(
+                                                      //       "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
+                                                      //     )
+                                                      // )
+                                                    ),
+
+              )
+         ]   ),
+
+
+
             OutlinedButton(
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
