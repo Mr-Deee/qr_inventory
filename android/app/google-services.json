@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "731273567237",
+    "project_id": "sims-a09fd",
+    "storage_bucket": "sims-a09fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:731273567237:android:be0c5fcce0b4161dd8906c",
+        "android_client_info": {
+          "package_name": "com.example.qr_inventory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "731273567237-59mp5ntci945nfojd68q00iciqjrbu2v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.qr_inventory",
+            "certificate_hash": "9c939e842824f541a65ce402c8a5a2c34284ec98"
+          }
+        },
+        {
+          "client_id": "731273567237-up754n79ak1l3ia5mobpm2u2o3q4de19.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnJbKsCQzNZJH0nMLJgI98i0YFwubh32Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "731273567237-up754n79ak1l3ia5mobpm2u2o3q4de19.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
