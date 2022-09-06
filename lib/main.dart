@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_inventory/screens/Registration.dart';
+import 'package:qr_inventory/screens/home.dart';
 import 'package:qr_inventory/screens/splash.dart';
 
 void main() {
@@ -17,6 +20,22 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const XplashXcreen(),
+      initialRoute: FirebaseAuth.instance.currentUser == null
+          ? '/login'
+          : '/main',
+      routes:
+      {
+
+        '/registration': (context) => RegistrationScreen(),
+        '/login': (context) => LoginScreen(),
+        '/home': (context) => HomeScreen(),
+
+
+
+
+      },
+
+
     );
   }
 }
