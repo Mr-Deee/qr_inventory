@@ -9,7 +9,10 @@ import 'package:qr_inventory/screens/sidebar.dart';
 
 import '../constants.dart';
 import '../functions/toast.dart';
+import '../models/product.dart';
 import '../utils/color_palette.dart';
+import '../widgets/product_card.dart';
+import '../widgets/product_group_card.dart';
 import 'barcode.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -255,43 +258,114 @@ class _HomeScreenState extends State<HomeScreen> {
 
               children:[
 
-                Column(
-                  children: [
-                   //Image.asset("assets/image-name"),
 
-                  ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 300,
+                 decoration:  BoxDecoration(
+                    border: Border.all(
+                                                            width: 4,
+                                                            color: Theme.of(
+                                                                context)
+                                                                .scaffoldBackgroundColor),
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                              spreadRadius: 2,
+                                                              blurRadius: 10,
+                                                              color: Colors
+                                                                  .black
+                                                                  .withOpacity(
+                                                                  0.1),
+                                                              offset:
+                                                              const Offset(
+                                                                  0, 10))
+                                                        ],
+                                                        shape:
+                                                        BoxShape.rectangle,
+                                                        // image: const DecorationImage(
+                                                        //     fit: BoxFit.cover,
+                                                        //     image: NetworkImage(
+                                                        //       "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
+                                                        //     )
+                                                        // )
+                                                      ),
+                  child:    Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: SizedBox(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: const [
+                                SizedBox(
+                                  height: 20,
+                                ),
+                              ],
+                            ),
+                            const Text(
+                              "Product Groups",
+                              style: TextStyle(
+                                color: ColorPalette.timberGreen,
+                                fontSize: 20,
+                                fontFamily: "Nunito",
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Expanded(
+                              child: StreamBuilder(
+                                stream:
+                                _firestore.collection("utils").snapshots(),
+                                builder: (
+                                    BuildContext context,
+                                    AsyncSnapshot<
+                                        QuerySnapshot<Map<String, dynamic>>>
+                                    snapshot,
+                                    ) {
+                                  if (snapshot.hasData) {
+                                    final List<dynamic> _productGroups =
+                                    snapshot.data!.docs[0].data()['list']
+                                    as List<dynamic>;
+                                    _productGroups.sort();
+                                    return GridView.builder(
+                                      gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        childAspectRatio: 2,
+                                        crossAxisSpacing: 20,
+                                        mainAxisSpacing: 20,
+                                      ),
+                                      itemCount: _productGroups.length,
+                                      itemBuilder: (context, index) {
+                                        return ProductGroupCard(
+                                          name: _productGroups[index] as String,
+                                          key: UniqueKey(),
+                                        );
+                                      },
+                                    );
+                                  } else {
+                                    return const Center(
+                                      child: SizedBox(
+                                        height: 40,
+                                        width: 40,
+                                        child: CircularProgressIndicator(
+                                          color: ColorPalette.pacificBlue,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
                 ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 300,
-               decoration:  BoxDecoration(
-                  border: Border.all(
-                                                          width: 4,
-                                                          color: Theme.of(
-                                                              context)
-                                                              .scaffoldBackgroundColor),
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                            spreadRadius: 2,
-                                                            blurRadius: 10,
-                                                            color: Colors
-                                                                .black
-                                                                .withOpacity(
-                                                                0.1),
-                                                            offset:
-                                                            const Offset(
-                                                                0, 10))
-                                                      ],
-                                                      shape:
-                                                      BoxShape.rectangle,
-                                                      // image: const DecorationImage(
-                                                      //     fit: BoxFit.cover,
-                                                      //     image: NetworkImage(
-                                                      //       "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
-                                                      //     )
-                                                      // )
-                                                    ),
-
               )
          ]   ),
 
@@ -323,58 +397,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            OutlinedButton(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Text(
-                  "Generate QR Code",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: buttonColor,
-                  ),
-                ),
-              ),
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(
-                  width: 1.0,
-                  color: buttonColor,
-                ),
-              ),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const QrCodeGenerationScreen(),
-                  ),
-                );
-              },
-            ),
-            OutlinedButton(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Text(
-                  "Generate Barcode",
-                  style: TextStyle(
-                    color: buttonColor,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(
-                  width: 1.0,
-                  color: buttonColor,
-                ),
-              ),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const BarcodeGenerationScreen(),
-                  ),
-                );
-              },
-            ),
+
+
             OutlinedButton(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),

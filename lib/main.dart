@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:qr_inventory/screens/Registration.dart';
 import 'package:qr_inventory/screens/home.dart';
 import 'package:qr_inventory/screens/loginScreen.dart';
-import 'package:qr_inventory/screens/product_details_page.dart';
+import 'package:qr_inventory/screens/addproduct.dart';
 import 'package:qr_inventory/screens/splash.dart';
 
 void main() async {
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         '/registration': (context) => RegistrationScreen(),
         '/login': (context) => LoginScreen(),
         '/home': (context) => HomeScreen(),
-        '/product_details':(context)=>ProductDetailsPage(),
+        '/product_details':(context)=>NewProductPage(),
 
 
 

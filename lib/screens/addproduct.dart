@@ -7,11 +7,11 @@ import '../models/product.dart';
 import '../utils/color_palette.dart';
 import '../widgets/location_drop_down.dart';
 
-class ProductDetailsPage extends StatelessWidget {
-  final Product? product;
-  final String? docID;
-  ProductDetailsPage({Key? key, this.product, this.docID}) : super(key: key);
+class NewProductPage extends StatelessWidget {
+  final String? group;
+  NewProductPage({Key? key, this.group}) : super(key: key);
 
+  final Product newProduct = Product();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
@@ -24,12 +24,12 @@ class ProductDetailsPage extends StatelessWidget {
         ),
         child: FloatingActionButton(
           onPressed: () {
+            newProduct.group = group;
             _firestore
                 .collection("products")
-                .doc(docID)
-                .update(product!.toMap())
+                .add(newProduct.toMap())
                 .then((value) {
-              showTextToast('Updated Sucessfully!');
+              showTextToast('Added Sucessfully!');
             }).catchError((e) {
               showTextToast('Failed!');
             });
@@ -71,7 +71,6 @@ class ProductDetailsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IconButton(
                             icon: const Icon(
@@ -83,7 +82,7 @@ class ProductDetailsPage extends StatelessWidget {
                             },
                           ),
                           const Text(
-                            "Edit Product",
+                            "New Product",
                             style: TextStyle(
                               fontFamily: "Nunito",
                               fontSize: 28,
@@ -91,24 +90,6 @@ class ProductDetailsPage extends StatelessWidget {
                             ),
                           ),
                         ],
-                      ),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.delete,
-                          color: ColorPalette.timberGreen,
-                        ),
-                        onPressed: () {
-                          _firestore
-                              .collection("products")
-                              .doc(docID)
-                              .delete()
-                              .then((value) {
-                            showTextToast('Deleted Sucessfully!');
-                          }).catchError((e) {
-                            showTextToast('Failed!');
-                          });
-                          Navigator.of(context).pop();
-                        },
                       ),
                     ],
                   ),
@@ -148,15 +129,13 @@ class ProductDetailsPage extends StatelessWidget {
                                   child: SingleChildScrollView(
                                     child: Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(
-                                            left: 8,
-                                            bottom: 12,
-                                          ),
+                                            left: 8, bottom: 12,),
                                           child: Text(
-                                            "Product Group : ${product!.group}",
+                                            "Product Group : $group",
                                             style: const TextStyle(
                                               fontFamily: "Nunito",
                                               fontSize: 17,
@@ -168,7 +147,7 @@ class ProductDetailsPage extends StatelessWidget {
                                           decoration: BoxDecoration(
                                             color: ColorPalette.white,
                                             borderRadius:
-                                                BorderRadius.circular(12),
+                                            BorderRadius.circular(12),
                                             boxShadow: [
                                               BoxShadow(
                                                 offset: const Offset(0, 3),
@@ -180,12 +159,12 @@ class ProductDetailsPage extends StatelessWidget {
                                           ),
                                           height: 50,
                                           child: TextFormField(
-                                            initialValue: product!.name ?? '',
+                                            initialValue: newProduct.name ?? '',
                                             onChanged: (value) {
-                                              product!.name = value;
+                                              newProduct.name = value;
                                             },
                                             textInputAction:
-                                                TextInputAction.next,
+                                            TextInputAction.next,
                                             key: UniqueKey(),
                                             keyboardType: TextInputType.text,
                                             style: const TextStyle(
@@ -206,7 +185,7 @@ class ProductDetailsPage extends StatelessWidget {
                                               ),
                                             ),
                                             cursorColor:
-                                                ColorPalette.timberGreen,
+                                            ColorPalette.timberGreen,
                                           ),
                                         ),
                                         const SizedBox(
@@ -219,11 +198,11 @@ class ProductDetailsPage extends StatelessWidget {
                                                 decoration: BoxDecoration(
                                                   color: ColorPalette.white,
                                                   borderRadius:
-                                                      BorderRadius.circular(12),
+                                                  BorderRadius.circular(12),
                                                   boxShadow: [
                                                     BoxShadow(
                                                       offset:
-                                                          const Offset(0, 3),
+                                                      const Offset(0, 3),
                                                       blurRadius: 6,
                                                       color: ColorPalette
                                                           .nileBlue
@@ -233,31 +212,32 @@ class ProductDetailsPage extends StatelessWidget {
                                                 ),
                                                 height: 50,
                                                 child: TextFormField(
-                                                  initialValue: product!.cost ==
-                                                          null
+                                                  initialValue:
+                                                  newProduct.cost == null
                                                       ? ''
-                                                      : product!.cost.toString(),
+                                                      : newProduct.cost
+                                                      .toString(),
                                                   onChanged: (value) {
-                                                    product!.cost =
+                                                    newProduct.cost =
                                                         double.parse(value);
                                                   },
                                                   textInputAction:
-                                                      TextInputAction.next,
+                                                  TextInputAction.next,
                                                   key: UniqueKey(),
                                                   keyboardType:
-                                                      TextInputType.number,
+                                                  TextInputType.number,
                                                   style: const TextStyle(
                                                     fontFamily: "Nunito",
                                                     fontSize: 16,
                                                     color:
-                                                        ColorPalette.nileBlue,
+                                                    ColorPalette.nileBlue,
                                                   ),
                                                   decoration: InputDecoration(
                                                     border: InputBorder.none,
                                                     hintText: "Cost",
                                                     filled: true,
                                                     fillColor:
-                                                        Colors.transparent,
+                                                    Colors.transparent,
                                                     hintStyle: TextStyle(
                                                       fontFamily: "Nunito",
                                                       fontSize: 16,
@@ -267,7 +247,7 @@ class ProductDetailsPage extends StatelessWidget {
                                                     ),
                                                   ),
                                                   cursorColor:
-                                                      ColorPalette.timberGreen,
+                                                  ColorPalette.timberGreen,
                                                 ),
                                               ),
                                             ),
@@ -279,11 +259,11 @@ class ProductDetailsPage extends StatelessWidget {
                                                 decoration: BoxDecoration(
                                                   color: ColorPalette.white,
                                                   borderRadius:
-                                                      BorderRadius.circular(12),
+                                                  BorderRadius.circular(12),
                                                   boxShadow: [
                                                     BoxShadow(
                                                       offset:
-                                                          const Offset(0, 3),
+                                                      const Offset(0, 3),
                                                       blurRadius: 6,
                                                       color: ColorPalette
                                                           .nileBlue
@@ -294,31 +274,32 @@ class ProductDetailsPage extends StatelessWidget {
                                                 height: 50,
                                                 child: TextFormField(
                                                   initialValue:
-                                                      product!.quantity == null
-                                                          ? ''
-                                                          : product!.quantity
-                                                              .toString(),
+                                                  newProduct.quantity ==
+                                                      null
+                                                      ? ''
+                                                      : newProduct.quantity
+                                                      .toString(),
                                                   onChanged: (value) {
-                                                    product!.quantity =
+                                                    newProduct.quantity =
                                                         int.parse(value);
                                                   },
                                                   textInputAction:
-                                                      TextInputAction.next,
+                                                  TextInputAction.next,
                                                   key: UniqueKey(),
                                                   keyboardType:
-                                                      TextInputType.number,
+                                                  TextInputType.number,
                                                   style: const TextStyle(
                                                     fontFamily: "Nunito",
                                                     fontSize: 16,
                                                     color:
-                                                        ColorPalette.nileBlue,
+                                                    ColorPalette.nileBlue,
                                                   ),
                                                   decoration: InputDecoration(
                                                     border: InputBorder.none,
                                                     hintText: "Quantity",
                                                     filled: true,
                                                     fillColor:
-                                                        Colors.transparent,
+                                                    Colors.transparent,
                                                     hintStyle: TextStyle(
                                                       fontFamily: "Nunito",
                                                       fontSize: 16,
@@ -328,7 +309,7 @@ class ProductDetailsPage extends StatelessWidget {
                                                     ),
                                                   ),
                                                   cursorColor:
-                                                      ColorPalette.timberGreen,
+                                                  ColorPalette.timberGreen,
                                                 ),
                                               ),
                                             ),
@@ -341,7 +322,7 @@ class ProductDetailsPage extends StatelessWidget {
                                           decoration: BoxDecoration(
                                             color: ColorPalette.white,
                                             borderRadius:
-                                                BorderRadius.circular(12),
+                                            BorderRadius.circular(12),
                                             boxShadow: [
                                               BoxShadow(
                                                 offset: const Offset(0, 3),
@@ -353,12 +334,13 @@ class ProductDetailsPage extends StatelessWidget {
                                           ),
                                           height: 50,
                                           child: TextFormField(
-                                            initialValue: product!.company ?? '',
+                                            initialValue:
+                                            newProduct.company ?? '',
                                             onChanged: (value) {
-                                              product!.company = value;
+                                              newProduct.company = value;
                                             },
                                             textInputAction:
-                                                TextInputAction.next,
+                                            TextInputAction.next,
                                             key: UniqueKey(),
                                             keyboardType: TextInputType.text,
                                             style: const TextStyle(
@@ -379,7 +361,7 @@ class ProductDetailsPage extends StatelessWidget {
                                               ),
                                             ),
                                             cursorColor:
-                                                ColorPalette.timberGreen,
+                                            ColorPalette.timberGreen,
                                           ),
                                         ),
                                         const SizedBox(
@@ -389,7 +371,7 @@ class ProductDetailsPage extends StatelessWidget {
                                           decoration: BoxDecoration(
                                             color: ColorPalette.white,
                                             borderRadius:
-                                                BorderRadius.circular(12),
+                                            BorderRadius.circular(12),
                                             boxShadow: [
                                               BoxShadow(
                                                 offset: const Offset(0, 3),
@@ -402,12 +384,12 @@ class ProductDetailsPage extends StatelessWidget {
                                           height: 50,
                                           child: TextFormField(
                                             initialValue:
-                                                product!.description ?? '',
+                                            newProduct.description ?? '',
                                             onChanged: (value) {
-                                              product!.description = value;
+                                              newProduct.description = value;
                                             },
                                             textInputAction:
-                                                TextInputAction.next,
+                                            TextInputAction.next,
                                             key: UniqueKey(),
                                             keyboardType: TextInputType.text,
                                             style: const TextStyle(
@@ -428,7 +410,7 @@ class ProductDetailsPage extends StatelessWidget {
                                               ),
                                             ),
                                             cursorColor:
-                                                ColorPalette.timberGreen,
+                                            ColorPalette.timberGreen,
                                           ),
                                         ),
                                         const SizedBox(height: 20),
@@ -446,7 +428,7 @@ class ProductDetailsPage extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                        LocationDD(product: product),
+                                        LocationDD(product: newProduct),
                                       ],
                                     ),
                                   ),
@@ -465,28 +447,28 @@ class ProductDetailsPage extends StatelessWidget {
                                           child: Container(
                                             color: ColorPalette.timberGreen
                                                 .withOpacity(0.1),
-                                            child: (product!.image == null)
+                                            child: (newProduct.image == null)
                                                 ? Center(
-                                                    child: Icon(
-                                                      Icons.image,
-                                                      color: ColorPalette
-                                                          .nileBlue
-                                                          .withOpacity(0.5),
-                                                    ),
-                                                  )
+                                              child: Icon(
+                                                Icons.image,
+                                                color: ColorPalette
+                                                    .nileBlue
+                                                    .withOpacity(0.5),
+                                              ),
+                                            )
                                                 : CachedNetworkImage(
-                                                    fit: BoxFit.cover,
-                                                    imageUrl: product!.image!,
-                                                    errorWidget:
-                                                        (context, s, a) {
-                                                      return Icon(
-                                                        Icons.image,
-                                                        color: ColorPalette
-                                                            .nileBlue
-                                                            .withOpacity(0.5),
-                                                      );
-                                                    },
-                                                  ),
+                                              fit: BoxFit.cover,
+                                              imageUrl: newProduct.image!,
+                                              errorWidget:
+                                                  (context, s, a) {
+                                                return Icon(
+                                                  Icons.image,
+                                                  color: ColorPalette
+                                                      .nileBlue
+                                                      .withOpacity(0.5),
+                                                );
+                                              },
+                                            ),
                                           ),
                                         ),
                                       ),

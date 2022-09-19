@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_inventory/screens/addproduct.dart';
 
 import '../models/product.dart';
 import '../utils/color_palette.dart';
 import '../widgets/product_card.dart';
-import 'new_product_page.dart';
+
 
 
 
@@ -28,7 +29,7 @@ class ProductGroupPage extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) {
                   return NewProductPage(
-                    group: name,
+                    group: name!,
                   );
                 },
               ),
@@ -139,8 +140,8 @@ class ProductGroupPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const Text(
-                            "Products",
+                           Text(
+                            name!,
                             style: TextStyle(
                               color: ColorPalette.timberGreen,
                               fontSize: 20,

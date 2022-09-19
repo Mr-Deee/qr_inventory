@@ -133,6 +133,8 @@ class _QrCodeGenerationScreenState extends State<QrCodeGenerationScreen> {
                   const SizedBox(
                     height: 15,
                   ),
+
+
                   OutlinedButton(
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),

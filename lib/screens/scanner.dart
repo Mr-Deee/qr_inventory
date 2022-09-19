@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:qr_inventory/screens/qrcode.dart';
 import 'package:qr_inventory/screens/result.dart';
 import 'package:qr_inventory/screens/sidebar.dart';
 
@@ -207,6 +208,34 @@ class _ScanScreenState extends State<ScanScreen> {
                 pickImage();
               },
             ),
+
+            OutlinedButton(
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Text(
+                  "Generate QR Code",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: buttonColor,
+                  ),
+                ),
+              ),
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(
+                  width: 1.0,
+                  color: buttonColor,
+                ),
+              ),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const QrCodeGenerationScreen(),
+                  ),
+                );
+              },
+            ),
+
             OutlinedButton(
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
