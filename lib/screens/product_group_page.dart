@@ -29,7 +29,7 @@ class ProductGroupPage extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) {
                   return NewProductPage(
-                    group: name!,
+                    group: name,
                   );
                 },
               ),
@@ -153,8 +153,8 @@ class ProductGroupPage extends StatelessWidget {
                             child: StreamBuilder(
                               stream: _firestore
                                   .collection("products")
-                                  .where("group",)
-                                  .orderBy('name')
+                                  .where("group",isEqualTo: name)
+
                                   .snapshots(),
                               builder: (
                                 BuildContext context,
