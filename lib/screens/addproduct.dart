@@ -43,7 +43,9 @@ class NewProductPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
+      body:
+
+      Container(
         color: ColorPalette.pacificBlue,
         child: SafeArea(
           child: Container(

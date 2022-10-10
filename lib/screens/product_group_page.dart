@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_inventory/screens/addproduct.dart';
+import 'package:qr_inventory/screens/scanner.dart';
 
 import '../models/product.dart';
 import '../utils/color_palette.dart';
@@ -18,30 +19,64 @@ class ProductGroupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(
-          bottom: 10,
-          right: 10,
-        ),
-        child: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return NewProductPage(
-                    group: name,
-                  );
-                },
+      floatingActionButton:
+
+
+      Row(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+              bottom: 10,
+              right: 10,
+              left: 100
+            ),
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return NewProductPage(
+                        group: name,
+                      );
+                    },
+                  ),
+                );
+              },
+              splashColor: ColorPalette.bondyBlue,
+              backgroundColor: ColorPalette.pacificBlue,
+              child: const Icon(
+                Icons.add,
+                color: ColorPalette.white,
               ),
-            );
-          },
-          splashColor: ColorPalette.bondyBlue,
-          backgroundColor: ColorPalette.pacificBlue,
-          child: const Icon(
-            Icons.add,
-            color: ColorPalette.white,
+            ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.only(
+                bottom: 10,
+                right: 10,
+                left: 100
+            ),
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ScanScreen(
+                        group: name, scannedData: '',
+                      );
+                    },
+                  ),
+                );
+              },
+              splashColor: ColorPalette.bondyBlue,
+              backgroundColor: ColorPalette.pacificBlue,
+              child: const Icon(
+                Icons.qr_code,
+                color: ColorPalette.white,
+              ),
+            ),
+          ),
+        ],
       ),
       body: Container(
         color: ColorPalette.pacificBlue,

@@ -126,12 +126,16 @@ class LoginScreen extends StatelessWidget {
                       height: 50,
                       width: 100,
                       //double.infinity,
-                      child: FlatButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
-                          // side: BorderSide(color: bcolor)
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                            // side: BorderSide(color: bcolor)
+                          ),
+                              backgroundColor: Colors.amber,
                         ),
-                        color: Colors.amber,
+
+
                         child: Text(
                           'Login',
                           style: TextStyle(
@@ -156,7 +160,7 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(
                     height: 5,
                   ),
-                  FlatButton(
+                  ElevatedButton(
                       onPressed: () {
                         Navigator.pushNamedAndRemoveUntil(context,
                             '/registration', (route) => false);

@@ -72,7 +72,7 @@ class _SidebarState extends State<Sidebar> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const ScanScreen(),
+                  builder: (context) =>  ScanScreen(scannedData: '',),
                 ),
               ),
             },

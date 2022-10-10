@@ -386,7 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ScanScreen(),
+                    builder: (context) =>  ScanScreen(scannedData: '',),
                   ),
                 );
               },

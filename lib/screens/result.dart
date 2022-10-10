@@ -9,10 +9,10 @@ import '../constants.dart';
 import 'home.dart';
 
 class ShowScannedData extends StatefulWidget {
-  const ShowScannedData({Key? key, required this.scannedData})
+  const ShowScannedData({Key? key,  this.scannedData})
       : super(key: key);
 
-  final String scannedData;
+  final String? scannedData;
 
   @override
   State<ShowScannedData> createState() => _ShowScannedDataState();
@@ -23,7 +23,7 @@ class _ShowScannedDataState extends State<ShowScannedData> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
-    bool tempData = Uri.parse(widget.scannedData).host == '' ? false : true;
+    bool tempData = Uri.parse(widget.scannedData!).host == '' ? false : true;
     if (tempData == true) {
       setState(() {
         isUrl = true;
@@ -96,7 +96,7 @@ class _ShowScannedDataState extends State<ShowScannedData> {
                     ),
                   ),
                   child: SelectableText(
-                    widget.scannedData,
+                    widget.scannedData!,
                     style: TextStyle(
                       color: lightTextColor,
                       fontSize: 20,
@@ -123,7 +123,7 @@ class _ShowScannedDataState extends State<ShowScannedData> {
                       ),
                     ),
                     onPressed: () {
-                      launch(widget.scannedData);
+                      launch(widget.scannedData!);
                     },
                   ),
                 const SizedBox(height: 10),
@@ -145,7 +145,7 @@ class _ShowScannedDataState extends State<ShowScannedData> {
                     ),
                   ),
                   onPressed: () {
-                    Share.share(widget.scannedData);
+                    Share.share(widget.scannedData!);
                   },
                 ),
                 const SizedBox(height: 20),
@@ -173,7 +173,7 @@ class _ShowScannedDataState extends State<ShowScannedData> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ScanScreen(),
+                            builder: (context) => ScanScreen(scannedData: '',),
                           ),
                         );
                       },

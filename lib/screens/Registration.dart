@@ -178,9 +178,16 @@ class RegistrationScreen extends StatelessWidget {
                   SizedBox(
                     height: 10.0,
                   ),
-                  RaisedButton(
-                    color: Colors.amber,
-                    textColor: Colors.black38,
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.amber,
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(24.0),
+                      ),
+
+                    ),
+
+                   // textColor: Colors.black38,
                     child: Container(
                       height: 50.0,
                       child: Center(
@@ -191,9 +198,7 @@ class RegistrationScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(24.0),
-                    ),
+
                     onPressed: () {
                       if (nameTextEditingController.text.length < 3) {
                         displayToast(
@@ -215,8 +220,11 @@ class RegistrationScreen extends StatelessWidget {
                   ),
                 ]),
               ),
-              FlatButton(
-                textColor: Colors.black,
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+
+                                  ),
+
                 onPressed: () {
                   Navigator.pushNamedAndRemoveUntil(
                       context, '/login', (route) => false);
