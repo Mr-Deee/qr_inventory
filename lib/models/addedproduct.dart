@@ -7,10 +7,12 @@ class Product {
     this.company,
     this.quantity,
     this.image,
+    this.barcode,
     this.description,
   });
 
   String? name;
+  String? barcode;
   double? cost;
   String? group;
   String? location;
@@ -26,6 +28,8 @@ class Product {
     location: json["location"] as String?,
     company: json["company"] as String?,
     quantity: json["quantity"] as int?,
+    barcode: json["barcode"] ,
+
     // image: json["image"] as String?,
     description: json["description"] as String?,
   );
@@ -35,6 +39,7 @@ class Product {
     "cost": cost,
     "group": group,
     "location": location,
+    "barcode": barcode,
     "company": company,
     "quantity": quantity,
     // "image": image,

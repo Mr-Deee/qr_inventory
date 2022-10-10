@@ -13,16 +13,17 @@ import 'package:qr_inventory/screens/result.dart';
 import 'package:qr_inventory/screens/sidebar.dart';
 
 import '../constants.dart';
+import '../functions/toast.dart';
 import '../models/addedproduct.dart';
 import '../utils/color_palette.dart';
 import '../widgets/location_drop_down.dart';
 import 'home.dart';
 
 class ScanScreen extends StatefulWidget {
-  const ScanScreen({Key? key, this.group, required this.scannedData})
+  const ScanScreen({Key? key, this.group, })
       : super(key: key);
   final String? group;
-  final String scannedData;
+
 
   @override
   State<ScanScreen> createState() => _ScanScreenState(group);
@@ -50,7 +51,7 @@ class _ScanScreenState extends State<ScanScreen> {
 
   bool isUrl = false;
 
-  String _scanBarcode = 'Unknown';
+  String _scanBarcode = '';
 
   Future<void> startBarcodeScanStream() async {
     FlutterBarcodeScanner.getBarcodeStreamReceiver(
@@ -97,7 +98,7 @@ class _ScanScreenState extends State<ScanScreen> {
     if (!mounted) return;
 
     setState(() {
-      _scanBarcode = barcodeScanRes;
+      newProduct.barcode = barcodeScanRes;
     });
   }
 
@@ -110,6 +111,32 @@ class _ScanScreenState extends State<ScanScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(
+          bottom: 10,
+          right: 10,
+        ),
+        child: FloatingActionButton(
+          onPressed: () {
+            newProduct.group = group;
+            _firestore
+                .collection("products")
+                .add(newProduct.toMap())
+                .then((value) {
+              showTextToast('Added Sucessfully!');
+            }).catchError((e) {
+              showTextToast('Failed!');
+            });
+            Navigator.of(context).pop();
+          },
+          splashColor: ColorPalette.bondyBlue,
+          backgroundColor: ColorPalette.pacificBlue,
+          child: const Icon(
+            Icons.done,
+            color: ColorPalette.white,
+          ),
+        ),
+      ),
       backgroundColor: bgColor,
       key: _scaffoldKey,
       endDrawer: const Sidebar(),
@@ -167,7 +194,7 @@ class _ScanScreenState extends State<ScanScreen> {
                                     Row(
                                       children: [
                                         Text(
-                                          "Scanning",
+                                          "Scan",
                                           style: TextStyle(
                                             fontSize: 20,
                                             color: lightTextColor,
@@ -188,7 +215,7 @@ class _ScanScreenState extends State<ScanScreen> {
                                     ),
                                     Row(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.end,
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Icon(
                                           Icons.qr_code_scanner_sharp,
@@ -463,40 +490,64 @@ class _ScanScreenState extends State<ScanScreen> {
                                           height: 20,
                                         ),
 
-                                        Container(
-                                            padding: const EdgeInsets.all(16),
-                                            margin: const EdgeInsets.all(16),
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                width: 1.0,
-                                                color: darkTextColor,
-                                              ),
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(
-                                                  5.0,
+                                       Padding(
+                                         padding: const EdgeInsets.all(8.0),
+                                         child: Container(
+
+
+                                                decoration: BoxDecoration(
+                                                    color: ColorPalette.white,
+                                                    borderRadius:
+                                                    BorderRadius.circular(12),
+                                                    boxShadow: [
+                                                    BoxShadow(
+                                                    offset: const Offset(0, 3),
+                                                blurRadius: 6,
+                                                color: ColorPalette.nileBlue
+                                                    .withOpacity(0.1),
+                                              ),]),
+                                                child:
+
+
+
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                    left:38,
+                                                    bottom: 5,
+                                                  ),
+                                                  child  :Column(
+
+                                                    children: [
+
+
+                                                      Row(
+                                                        children: [
+                                                          Padding(
+                                                            padding: const EdgeInsets.all(8.0),
+                                                            child: Icon(
+                                                              Icons.qr_code_scanner_sharp,
+                                                              size: 35,
+                                                              color: darkTextColor,),
+                                                          ),
+
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(top:8.0,left:8.0),
+                                                            child: Text(
+                                                                newProduct.barcode ??"",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                    20)
+
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            child: Container(
-                                              child:
-
-
-
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                  left: 8,
-                                                  bottom: 5,
-                                                ),
-                                                child  :Text(
-                                                    'Scan result : $_scanBarcode\n',
-                                                    style: TextStyle(
-                                                        fontSize:
-                                                        20)
-
-                                                ),
-                                              ),
-                                            )),
+                                       ),
                                         Container(
                                           decoration: BoxDecoration(
                                             color: ColorPalette.white,
@@ -554,41 +605,54 @@ class _ScanScreenState extends State<ScanScreen> {
 
 
 
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 30),
-                                    child: SizedBox(
-                                      height: 150,
-                                      width: 100,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(11),
-                                        child: Container(
-                                          color: ColorPalette.white,
+                                GestureDetector(
+                                  onTap: (){
+                                    scanBarcodeNormal();
+
+                                  },
+                                  child: Align(
+                                    alignment: Alignment.topCenter,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 30),
+                                      child: SizedBox(
+                                        height: 100,
+                                        width: 100,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(11),
                                           child: Container(
-                                            color: ColorPalette.timberGreen
-                                                .withOpacity(0.1),
-                                            child: (newProduct.image == null)
-                                                ? Center(
-                                              child: Icon(
-                                                Icons.image,
-                                                color: ColorPalette
-                                                    .nileBlue
-                                                    .withOpacity(0.5),
+                                            color: ColorPalette.white,
+                                            child: Container(
+                                              color: ColorPalette.timberGreen
+                                                  .withOpacity(0.1),
+                                              child:
+
+                                                Padding(
+                                                  padding: const EdgeInsets.only(top:30.0,left:12,right: 12),
+                                                  child: Column(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.qr_code_scanner_sharp,
+                                                        size: 35,
+                                                        color: darkTextColor,
+                                                      ),
+
+                                                    ],
+
                                               ),
-                                            )
-                                                : CachedNetworkImage(
-                                              fit: BoxFit.cover,
-                                              imageUrl: newProduct.image!,
-                                              errorWidget:
-                                                  (context, s, a) {
-                                                return Icon(
-                                                  Icons.image,
-                                                  color: ColorPalette
-                                                      .nileBlue
-                                                      .withOpacity(0.5),
-                                                );
-                                              },
+                                                )
+                                              //     : CachedNetworkImage(
+                                              //   fit: BoxFit.cover,
+                                              //   imageUrl: newProduct.image!,
+                                              //   errorWidget:
+                                              //       (context, s, a) {
+                                              //     return Icon(
+                                              //       Icons.image,
+                                              //       color: ColorPalette
+                                              //           .nileBlue
+                                              //           .withOpacity(0.5),
+                                              //     );
+                                              //   },
+                                              // ),
                                             ),
                                           ),
                                         ),

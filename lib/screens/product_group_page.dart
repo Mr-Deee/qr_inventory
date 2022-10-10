@@ -62,7 +62,7 @@ class ProductGroupPage extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) {
                       return ScanScreen(
-                        group: name, scannedData: '',
+                        group: name,
                       );
                     },
                   ),

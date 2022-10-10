@@ -371,55 +371,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
-            OutlinedButton(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Text(
-                  "Scan QR | Barcode",
-                  style: TextStyle(
-                    color: buttonColor,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>  ScanScreen(scannedData: '',),
-                  ),
-                );
-              },
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(
-                  width: 1.0,
-                  color: buttonColor,
-                ),
-              ),
-            ),
-
-
-            OutlinedButton(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  "Exit Application",
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: buttonColor,
-                  ),
-                ),
-              ),
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(
-                  width: 0.9,
-                  color: buttonColor,
-                ),
-              ),
-              onPressed: () {
-                SystemNavigator.pop();
-              },
-            ),
+            // OutlinedButton(
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(10.0),
+            //     child: Text(
+            //       "Exit Application",
+            //       style: TextStyle(
+            //         fontSize: 18,
+            //         color: buttonColor,
+            //       ),
+            //     ),
+            //   ),
+            //   style: OutlinedButton.styleFrom(
+            //     side: BorderSide(
+            //       width: 0.9,
+            //       color: buttonColor,
+            //     ),
+            //   ),
+            //   onPressed: () {
+            //     SystemNavigator.pop();
+            //   },
+            // ),
           ],
         ),
       ),

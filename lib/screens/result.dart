@@ -173,7 +173,7 @@ class _ShowScannedDataState extends State<ShowScannedData> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ScanScreen(scannedData: '',),
+                            builder: (context) => ScanScreen(),
                           ),
                         );
                       },
