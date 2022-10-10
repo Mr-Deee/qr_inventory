@@ -131,44 +131,7 @@ class _ScanScreenState extends State<ScanScreen> {
           ),
         ),
         actions: [
-          IconButton(
-            color: Colors.white,
-            icon: ValueListenableBuilder(
-              valueListenable: cameraController.torchState,
-              builder: (context, state, child) {
-                switch (state as TorchState) {
-                  case TorchState.off:
-                    return const Icon(
-                      Icons.flash_off,
-                      color: Colors.white,
-                    );
-                  case TorchState.on:
-                    return const Icon(
-                      Icons.flash_on,
-                      color: Colors.white,
-                    );
-                }
-              },
-            ),
-            iconSize: 32.0,
-            onPressed: () => cameraController.toggleTorch(),
-          ),
-          IconButton(
-            color: Colors.white,
-            icon: ValueListenableBuilder(
-              valueListenable: cameraController.cameraFacingState,
-              builder: (context, state, child) {
-                switch (state as CameraFacing) {
-                  case CameraFacing.front:
-                    return const Icon(Icons.camera_front);
-                  case CameraFacing.back:
-                    return const Icon(Icons.camera_rear);
-                }
-              },
-            ),
-            iconSize: 32.0,
-            onPressed: () => cameraController.switchCamera(),
-          ),
+
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
@@ -248,7 +211,7 @@ class _ScanScreenState extends State<ScanScreen> {
                                     horizontal: 20,
                                     vertical: 90,
                                   ),
-                                  margin: const EdgeInsets.only(top: 155),
+                                  margin: const EdgeInsets.only(top: 100),
                                   decoration: const BoxDecoration(
                                     color: ColorPalette.white,
                                     borderRadius: BorderRadius.only(
@@ -516,13 +479,22 @@ class _ScanScreenState extends State<ScanScreen> {
                                               ),
                                             ),
                                             child: Container(
-                                              child: SelectableText(
-                                                widget.scannedData,
-                                                style: TextStyle(
-                                                  color: lightTextColor,
-                                                  fontSize: 20,
+                                              child:
+
+
+
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                  left: 8,
+                                                  bottom: 5,
                                                 ),
-                                                textAlign: TextAlign.center,
+                                                child  :Text(
+                                                    'Scan result : $_scanBarcode\n',
+                                                    style: TextStyle(
+                                                        fontSize:
+                                                        20)
+
+                                                ),
                                               ),
                                             )),
                                         Container(
@@ -572,73 +544,106 @@ class _ScanScreenState extends State<ScanScreen> {
                                           ),
                                         ),
                                         const SizedBox(height: 20),
-                                        // const Padding(
-                                        //   padding: EdgeInsets.only(
-                                        //     left: 8,
-                                        //     bottom: 5,
-                                        //   ),
-                                        //   child: Text(
-                                        //     "Location",
-                                        //     style: TextStyle(
-                                        //       fontFamily: "Nunito",
-                                        //       fontSize: 14,
-                                        //       color: ColorPalette.nileBlue,
-                                        //     ),
-                                        //   ),
-                                        // ),
-                                        //     LocationDD(product: newProduct),
+
+
+                                           // LocationDD(product: newProduct),
                                       ],
                                     ),
                                   ),
                                 ),
+
+
+
                                 Align(
                                   alignment: Alignment.topCenter,
                                   child: Padding(
-                                    padding: const EdgeInsets.only(top: 10),
+                                    padding: const EdgeInsets.only(top: 30),
                                     child: SizedBox(
-                                      height: 100,
+                                      height: 150,
                                       width: 100,
-                                      child:  Center(
-                                                    child: Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        child: Flex(
-                                                            direction:
-                                                                Axis.vertical,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              ElevatedButton(
-                                                                  onPressed: () =>
-                                                                      scanBarcodeNormal(),
-                                                                  child: Text(
-                                                                      'Start barcode scan')),
-                                                              ElevatedButton(
-                                                                  onPressed: () =>
-                                                                      scanQR(),
-                                                                  child: Text(
-                                                                      'Start QR scan')),
-                                                              ElevatedButton(
-
-                                                                  onPressed: () =>
-                                                                      startBarcodeScanStream(),
-                                                                  child: Text(
-                                                                      'Start barcode scan stream')),
-                                                              Text(
-                                                                  'Scan result : $_scanBarcode\n',
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          20))
-                                                            ])))
-
-
-
-
-
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(11),
+                                        child: Container(
+                                          color: ColorPalette.white,
+                                          child: Container(
+                                            color: ColorPalette.timberGreen
+                                                .withOpacity(0.1),
+                                            child: (newProduct.image == null)
+                                                ? Center(
+                                              child: Icon(
+                                                Icons.image,
+                                                color: ColorPalette
+                                                    .nileBlue
+                                                    .withOpacity(0.5),
+                                              ),
+                                            )
+                                                : CachedNetworkImage(
+                                              fit: BoxFit.cover,
+                                              imageUrl: newProduct.image!,
+                                              errorWidget:
+                                                  (context, s, a) {
+                                                return Icon(
+                                                  Icons.image,
+                                                  color: ColorPalette
+                                                      .nileBlue
+                                                      .withOpacity(0.5),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                                )],
+                                // Align(
+                                //   alignment: Alignment.topCenter,
+                                //   child: Padding(
+                                //     padding: const EdgeInsets.only(top: 10),
+                                //     child: SizedBox(
+                                //       height: 100,
+                                //       width: 100,
+                                //       child:  Center(
+                                //                     child: Container(
+                                //                         alignment:
+                                //                             Alignment.center,
+                                //                         child: Flex(
+                                //                             direction:
+                                //                                 Axis.vertical,
+                                //                             mainAxisAlignment:
+                                //                                 MainAxisAlignment
+                                //                                     .center,
+                                //                             children: <Widget>[
+                                //                               ElevatedButton(
+                                //                                   onPressed: () =>
+                                //                                       scanBarcodeNormal(),
+                                //                                   child: Text(
+                                //                                       'Start barcode scan')),
+                                //                               // ElevatedButton(
+                                //                               //     onPressed: () =>
+                                //                               //         scanQR(),
+                                //                               //     child: Text(
+                                //                               //         'Start QR scan')),
+                                //                               ElevatedButton(
+                                //
+                                //                                   onPressed: () =>
+                                //                                       startBarcodeScanStream(),
+                                //                                   child: Text(
+                                //                                       'Start barcode scan stream')),
+                                //
+                                //                             ])))
+                                //
+                                //
+                                //
+                                //
+                                //
+                                //   ),
+                                // ),
+                                // )
+
+
+
+                              ],
                             ),
                           ),
                         ],
@@ -646,101 +651,7 @@ class _ScanScreenState extends State<ScanScreen> {
                     ),
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(15),
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Scan any QR Code or Barcode",
-                        style: TextStyle(
-                          color: lightTextColor,
-                          fontSize: 20,
-                        ),
-                      ),
-                      OutlinedButton(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Wrap(
-                            spacing: 10,
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.drive_folder_upload,
-                                color: buttonColor,
-                              ),
-                              Text(
-                                "Browse from Gallery",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: buttonColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        style: OutlinedButton.styleFrom(
-                          side: BorderSide(width: 1.0, color: buttonColor),
-                        ),
-                        onPressed: () {
-                          pickImage();
-                        },
-                      ),
-                      OutlinedButton(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Text(
-                            "Generate QR Code",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: buttonColor,
-                            ),
-                          ),
-                        ),
-                        style: OutlinedButton.styleFrom(
-                          side: BorderSide(
-                            width: 1.0,
-                            color: buttonColor,
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const QrCodeGenerationScreen(),
-                            ),
-                          );
-                        },
-                      ),
-                      OutlinedButton(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                            "Back",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: buttonColor,
-                            ),
-                          ),
-                        ),
-                        style: OutlinedButton.styleFrom(
-                          side: BorderSide(width: 1.0, color: buttonColor),
-                        ),
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const HomeScreen(),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
+
               ],
             ),
           ),
