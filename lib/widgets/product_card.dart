@@ -164,7 +164,7 @@ class ProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    "₹${product!.cost ?? '-'}",
+                    "GHC${product!.cost ?? '-'}",
                     style: const TextStyle(
                       fontFamily: "Nunito",
                       fontSize: 14,

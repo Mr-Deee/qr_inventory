@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
 import '../functions/toast.dart';
 import '../models/product.dart';
 import '../utils/color_palette.dart';
@@ -11,6 +12,7 @@ class ProductDetailsPage extends StatelessWidget {
   final Product? product;
   final String? docID;
   ProductDetailsPage({Key? key, this.product, this.docID}) : super(key: key);
+  final Product newProduct = Product();
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -431,22 +433,74 @@ class ProductDetailsPage extends StatelessWidget {
                                                 ColorPalette.timberGreen,
                                           ),
                                         ),
-                                        const SizedBox(height: 20),
-                                        const Padding(
-                                          padding: EdgeInsets.only(
-                                            left: 8,
-                                            bottom: 5,
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: ColorPalette.white,
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                offset: const Offset(0, 3),
+                                                blurRadius: 6,
+                                                color: ColorPalette.nileBlue
+                                                    .withOpacity(0.1),
+                                              ),
+                                            ],
                                           ),
-                                          child: Text(
-                                            "Location",
-                                            style: TextStyle(
+                                          height: 50,
+                                          child: TextFormField(
+                                            initialValue:
+                                                product!.barcode ?? '',
+                                            onChanged: (value) {
+                                              product!.barcode = value;
+                                            },
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            key: UniqueKey(),
+                                            keyboardType: TextInputType.text,
+                                            style: const TextStyle(
                                               fontFamily: "Nunito",
-                                              fontSize: 14,
+                                              fontSize: 16,
                                               color: ColorPalette.nileBlue,
                                             ),
+                                            decoration: InputDecoration(
+                                              border: InputBorder.none,
+                                              hintText: "Barcode",
+                                              filled: true,
+                                              fillColor: Colors.transparent,
+                                              hintStyle: TextStyle(
+                                                fontFamily: "Nunito",
+                                                fontSize: 16,
+                                                color: ColorPalette.nileBlue
+                                                    .withOpacity(0.58),
+                                              ),
+                                            ),
+                                            cursorColor:
+                                                ColorPalette.timberGreen,
                                           ),
                                         ),
-                                        LocationDD(product: product),
+                                        const SizedBox(height: 20),
+
+
+
+                                        // const Padding(
+                                        //   padding: EdgeInsets.only(
+                                        //     left: 8,
+                                        //     bottom: 5,
+                                        //   ),
+                                        //   child: Text(
+                                        //     "Location",
+                                        //     style: TextStyle(
+                                        //       fontFamily: "Nunito",
+                                        //       fontSize: 14,
+                                        //       color: ColorPalette.nileBlue,
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                        // LocationDD(product: product),
                                       ],
                                     ),
                                   ),

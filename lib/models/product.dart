@@ -1,5 +1,6 @@
 class Product {
     Product({
+        this.barcode,
         this.name,
         this.cost,
         this.group,
@@ -11,6 +12,7 @@ class Product {
     });
 
     String? name;
+    String? barcode;
     double? cost;
     String? group;
     String? location;
@@ -26,6 +28,7 @@ class Product {
         location: json["location"] as String?,
         company: json["company"] as String?,
         quantity: json["quantity"] as int?,
+        barcode: json["barcode"] as String?,
        // image: json["image"] as String?,
         description: json["description"] as String?,
     );
