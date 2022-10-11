@@ -11,7 +11,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:qr_inventory/screens/qrcode.dart';
 import 'package:qr_inventory/screens/result.dart';
 import 'package:qr_inventory/screens/sidebar.dart';
-
+import 'package:intl/intl.dart';
 import '../constants.dart';
 import '../functions/toast.dart';
 import '../models/addedproduct.dart';
@@ -32,7 +32,7 @@ class ScanScreen extends StatefulWidget {
 class _ScanScreenState extends State<ScanScreen> {
   final Product newProduct = Product();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
+  TextEditingController dateInput = TextEditingController();
   String? group;
 
   _ScanScreenState(this.group);
@@ -440,53 +440,8 @@ class _ScanScreenState extends State<ScanScreen> {
                                         const SizedBox(
                                           height: 20,
                                         ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: ColorPalette.white,
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                offset: const Offset(0, 3),
-                                                blurRadius: 6,
-                                                color: ColorPalette.nileBlue
-                                                    .withOpacity(0.1),
-                                              ),
-                                            ],
-                                          ),
-                                          height: 50,
-                                          child: TextFormField(
-                                            initialValue:
-                                                newProduct.company ?? '',
-                                            onChanged: (value) {
-                                              newProduct.company = value;
-                                            },
-                                            textInputAction:
-                                                TextInputAction.next,
-                                            key: UniqueKey(),
-                                            keyboardType: TextInputType.text,
-                                            style: const TextStyle(
-                                              fontFamily: "Nunito",
-                                              fontSize: 16,
-                                              color: ColorPalette.nileBlue,
-                                            ),
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              hintText: "Company",
-                                              filled: true,
-                                              fillColor: Colors.transparent,
-                                              hintStyle: TextStyle(
-                                                fontFamily: "Nunito",
-                                                fontSize: 16,
-                                                color: ColorPalette.nileBlue
-                                                    .withOpacity(0.58),
-                                              ),
-                                            ),
-                                            cursorColor:
-                                                ColorPalette.timberGreen,
-                                          ),
-                                        ),
-                                        const SizedBox(
+
+                                         SizedBox(
                                           height: 20,
                                         ),
 
@@ -595,6 +550,70 @@ class _ScanScreenState extends State<ScanScreen> {
                                           ),
                                         ),
                                         const SizedBox(height: 20),
+
+
+
+                                        TextFormField(
+                                          controller: dateInput,
+                                          //editing controller of this TextField
+                                          decoration: InputDecoration(
+                                            icon: Icon(Icons.calendar_today), //icon of text field
+                                            // labelText: "Enter Date" //label text of field
+                                          ),
+                                          readOnly: true,
+                                          //set it true, so that user will not able to edit text
+                                          onTap: () async {
+                                            DateTime? pickedDate = await showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime.now(),
+                                                firstDate: DateTime(1950),
+                                                //DateTime.now() - not to allow to choose before today.
+                                                lastDate: DateTime(2100));
+
+                                            if (pickedDate != null) {
+                                              print(
+                                                  pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                                              String formattedDate =
+                                              DateFormat('yyyy-MM-dd').format(pickedDate);
+                                              print(
+                                                  formattedDate); //formatted date output using intl package =>  2021-03-16
+                                              setState(() {
+                                                dateInput.text =
+                                                    formattedDate; //set output date to TextField value.
+                                              });
+                                            } else {}
+                                          },
+                                        )
+                                            // child: TextFormField(
+                                            //   initialValue:
+                                            //       newProduct.company ?? '',
+                                            //   onChanged: (value) {
+                                            //     newProduct.company = value;
+                                            //   },
+                                            //   textInputAction:
+                                            //       TextInputAction.next,
+                                            //   key: UniqueKey(),
+                                            //   keyboardType: TextInputType.text,
+                                            //   style: const TextStyle(
+                                            //     fontFamily: "Nunito",
+                                            //     fontSize: 16,
+                                            //     color: ColorPalette.nileBlue,
+                                            //   ),
+                                            //   decoration: InputDecoration(
+                                            //     border: InputBorder.none,
+                                            //     hintText: "Company",
+                                            //     filled: true,
+                                            //     fillColor: Colors.transparent,
+                                            //     hintStyle: TextStyle(
+                                            //       fontFamily: "Nunito",
+                                            //       fontSize: 16,
+                                            //       color: ColorPalette.nileBlue
+                                            //           .withOpacity(0.58),
+                                            //     ),
+                                            //   ),
+                                            //   cursorColor:
+                                            //       ColorPalette.timberGreen,
+
 
 
                                            // LocationDD(product: newProduct),

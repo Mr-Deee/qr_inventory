@@ -4,7 +4,7 @@ class Product {
     this.cost,
     this.group,
     this.location,
-    this.company,
+    this.ExpiryDate,
     this.quantity,
     this.image,
     this.barcode,
@@ -16,7 +16,7 @@ class Product {
   double? cost;
   String? group;
   String? location;
-  String? company;
+  String? ExpiryDate;
   int? quantity;
   String? image;
   String? description;
@@ -26,7 +26,7 @@ class Product {
     cost: json["cost"] as double?,
     group: json["group"] as String?,
     location: json["location"] as String?,
-    company: json["company"] as String?,
+    ExpiryDate: json["ExpiryDate"] as String?,
     quantity: json["quantity"] as int?,
     barcode: json["barcode"] ,
 
@@ -40,7 +40,7 @@ class Product {
     "group": group,
     "location": location,
     "barcode": barcode,
-    "company": company,
+    "ExpiryDate": ExpiryDate,
     "quantity": quantity,
     // "image": image,
     "description": description,

@@ -88,12 +88,12 @@ class ProductCard extends StatelessWidget {
                   Row(
                     children: [
                       Icon(
-                        Icons.location_on,
+                        Icons.qr_code,
                         size: 14,
                         color: ColorPalette.timberGreen.withOpacity(0.44),
                       ),
                       Text(
-                        product!.location ?? '-',
+                        product!.barcode ?? '-',
                         maxLines: 1,
                         style: const TextStyle(
                           fontFamily: "Nunito",

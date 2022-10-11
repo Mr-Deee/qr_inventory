@@ -14,8 +14,19 @@ class NewProductPage extends StatelessWidget {
   final Product newProduct = Product();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+
+
+
+  String valueToReturn = '';
   @override
   Widget build(BuildContext context) {
+    DateTime dateStart = DateTime.now(); //YOUR DATE GOES HERE
+    DateTime dateEnd = DateTime.now(); // YOUR DATE GOES HERE
+    bool isValidDate = dateStart.isBefore(dateEnd);
+    final now = DateTime.now();
+    final expirationDate = DateTime(2021, 1, 10);
+
+    final bool isExpired = expirationDate.isBefore(now);
     return Scaffold(
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(
@@ -335,36 +346,39 @@ class NewProductPage extends StatelessWidget {
                                             ],
                                           ),
                                           height: 50,
-                                          child: TextFormField(
-                                            initialValue:
-                                            newProduct.company ?? '',
-                                            onChanged: (value) {
-                                              newProduct.company = value;
-                                            },
-                                            textInputAction:
-                                            TextInputAction.next,
-                                            key: UniqueKey(),
-                                            keyboardType: TextInputType.text,
-                                            style: const TextStyle(
-                                              fontFamily: "Nunito",
-                                              fontSize: 16,
-                                              color: ColorPalette.nileBlue,
-                                            ),
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              hintText: "Company",
-                                              filled: true,
-                                              fillColor: Colors.transparent,
-                                              hintStyle: TextStyle(
-                                                fontFamily: "Nunito",
-                                                fontSize: 16,
-                                                color: ColorPalette.nileBlue
-                                                    .withOpacity(0.58),
-                                              ),
-                                            ),
-                                            cursorColor:
-                                            ColorPalette.timberGreen,
-                                          ),
+
+
+                                          // TextFormField(
+                                          //
+                                          //   initialValue:
+                                          //   newProduct!.year?? '',
+                                          //   onChanged: (value) {
+                                          //     newProduct.year = value;
+                                          //   },
+                                          //   textInputAction:
+                                          //   TextInputAction.next,
+                                          //   key: UniqueKey(),
+                                          //   keyboardType: TextInputType.text,
+                                          //   style: const TextStyle(
+                                          //     fontFamily: "Nunito",
+                                          //     fontSize: 16,
+                                          //     color: ColorPalette.nileBlue,
+                                          //   ),
+                                          //   decoration: InputDecoration(
+                                          //     border: InputBorder.none,
+                                          //     hintText: "Company",
+                                          //     filled: true,
+                                          //     fillColor: Colors.transparent,
+                                          //     hintStyle: TextStyle(
+                                          //       fontFamily: "Nunito",
+                                          //       fontSize: 16,
+                                          //       color: ColorPalette.nileBlue
+                                          //           .withOpacity(0.58),
+                                          //     ),
+                                          //   ),
+                                          //   cursorColor:
+                                          //   ColorPalette.timberGreen,
+                                          // ),
                                         ),
                                         const SizedBox(
                                           height: 20,
