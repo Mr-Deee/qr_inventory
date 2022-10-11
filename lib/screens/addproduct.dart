@@ -1,23 +1,34 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../functions/toast.dart';
 import '../models/product.dart';
 import '../utils/color_palette.dart';
 import '../widgets/location_drop_down.dart';
 
-class NewProductPage extends StatelessWidget {
+class NewProductPage extends StatefulWidget {
   final String? group;
   NewProductPage({Key? key, this.group}) : super(key: key);
+  @override
+  State<NewProductPage> createState() => _NewProductPageState(group);
+}
 
   final Product newProduct = Product();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 
 
+class _NewProductPageState extends State<NewProductPage> {
+  TextEditingController dateInput = TextEditingController();
 
+  String? group;
+  _NewProductPageState(this.group);
   String valueToReturn = '';
+
+
+
   @override
   Widget build(BuildContext context) {
     DateTime dateStart = DateTime.now(); //YOUR DATE GOES HERE
@@ -348,37 +359,7 @@ class NewProductPage extends StatelessWidget {
                                           height: 50,
 
 
-                                          // TextFormField(
-                                          //
-                                          //   initialValue:
-                                          //   newProduct!.year?? '',
-                                          //   onChanged: (value) {
-                                          //     newProduct.year = value;
-                                          //   },
-                                          //   textInputAction:
-                                          //   TextInputAction.next,
-                                          //   key: UniqueKey(),
-                                          //   keyboardType: TextInputType.text,
-                                          //   style: const TextStyle(
-                                          //     fontFamily: "Nunito",
-                                          //     fontSize: 16,
-                                          //     color: ColorPalette.nileBlue,
-                                          //   ),
-                                          //   decoration: InputDecoration(
-                                          //     border: InputBorder.none,
-                                          //     hintText: "Company",
-                                          //     filled: true,
-                                          //     fillColor: Colors.transparent,
-                                          //     hintStyle: TextStyle(
-                                          //       fontFamily: "Nunito",
-                                          //       fontSize: 16,
-                                          //       color: ColorPalette.nileBlue
-                                          //           .withOpacity(0.58),
-                                          //     ),
-                                          //   ),
-                                          //   cursorColor:
-                                          //   ColorPalette.timberGreen,
-                                          // ),
+
                                         ),
                                         const SizedBox(
                                           height: 20,
@@ -430,21 +411,39 @@ class NewProductPage extends StatelessWidget {
                                           ),
                                         ),
                                         const SizedBox(height: 20),
-                                        const Padding(
-                                          padding: EdgeInsets.only(
-                                            left: 8,
-                                            bottom: 5,
+                                        TextFormField(
+                                          controller: dateInput,
+                                          //editing controller of this TextField
+                                          decoration: InputDecoration(
+                                            icon: Icon(Icons.calendar_today), //icon of text field
+                                            // labelText: "Enter Date" //label text of field
                                           ),
-                                          child: Text(
-                                            "Location",
-                                            style: TextStyle(
-                                              fontFamily: "Nunito",
-                                              fontSize: 14,
-                                              color: ColorPalette.nileBlue,
-                                            ),
-                                          ),
-                                        ),
-                                        LocationDD(product: newProduct),
+                                          readOnly: true,
+                                          //set it true, so that user will not able to edit text
+                                          onTap: () async {
+                                            DateTime? pickedDate = await showDatePicker(
+                                                context: context,
+                                                initialDate: DateTime.now(),
+                                                firstDate: DateTime(1950),
+                                                //DateTime.now() - not to allow to choose before today.
+                                                lastDate: DateTime(2100));
+
+                                            if (pickedDate != null) {
+                                              print(
+                                                  pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                                              newProduct.Expiry =
+                                                  DateFormat('yyyy-MM-dd').format(pickedDate);
+                                              print(
+                                                  newProduct.Expiry); //formatted date output using intl package =>  2021-03-16
+                                              setState(() {
+                                                dateInput.text =
+                                                newProduct.Expiry!;
+                                                // formattedDate=newProduct.barcode!;
+                                                //set output date to TextField value.
+                                              });
+                                            } else {}
+                                          },
+                                        )
                                       ],
                                     ),
                                   ),

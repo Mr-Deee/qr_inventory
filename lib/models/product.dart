@@ -1,6 +1,7 @@
 class Product {
     Product({
         this.barcode,
+
         this.name,
         this.cost,
         this.group,
@@ -9,8 +10,8 @@ class Product {
         this.quantity,
         this.image,
         this.description,
-        this.year,
-        this.month,
+        this.Expiry,
+
     });
 
     String? name;
@@ -20,7 +21,7 @@ class Product {
     String? location;
     String? company;
     int? month;
-    int? year;
+    String? Expiry;
     int? quantity;
     String? image;
     String? description;
@@ -33,8 +34,8 @@ class Product {
         company: json["company"] as String?,
         quantity: json["quantity"] as int?,
         barcode: json["barcode"] as String?,
-        year: json["expiryyear"]  as int?,
-        month: json["expirymonth"]  as int?,
+        Expiry: json["ExpiryDate"]  as String?,
+
        // image: json["image"] as String?,
         description: json["description"] as String?,
     );
@@ -46,8 +47,8 @@ class Product {
         "location": location,
         "company": company,
         "quantity": quantity,
-        "expiryyear":year,
-        "expirymonth":month,
+        "ExpiryDate":Expiry,
+
 
        // "image": image,
         "description": description,
