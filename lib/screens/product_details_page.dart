@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 import '../constants.dart';
 import '../functions/toast.dart';
@@ -8,16 +10,50 @@ import '../models/product.dart';
 import '../utils/color_palette.dart';
 import '../widgets/location_drop_down.dart';
 
-class ProductDetailsPage extends StatelessWidget {
+class ProductDetailsPage extends StatefulWidget {
   final Product? product;
   final String? docID;
-  ProductDetailsPage({Key? key, this.product, this.docID}) : super(key: key);
-  final Product newProduct = Product();
+  String?group;
+  ProductDetailsPage({Key? key, this.product, this.group, this.docID}) : super(key: key);
 
+  @override
+  State<ProductDetailsPage> createState() => _ProductDetailsPageState(group, docID,product);
+}
+class _ProductDetailsPageState extends State<ProductDetailsPage> {
+  final Product newProduct = Product();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  String?docID;
+
+  Future<void> scanBarcodeNormal() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+      print(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      newProduct.barcode = barcodeScanRes;
+    });
+  }
+  Product? product;
+  String?group;
+
+  _ProductDetailsPageState(this.group,this.docID,this.product);
+
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(
@@ -505,42 +541,55 @@ class ProductDetailsPage extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: SizedBox(
-                                      height: 100,
-                                      width: 100,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(11),
-                                        child: Container(
-                                          color: ColorPalette.white,
+                                GestureDetector(
+                                  onTap: (){
+                                    scanBarcodeNormal();
+
+                                  },
+                                  child: Align(
+                                    alignment: Alignment.topCenter,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 30),
+                                      child: SizedBox(
+                                        height: 100,
+                                        width: 100,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(11),
                                           child: Container(
-                                            color: ColorPalette.timberGreen
-                                                .withOpacity(0.1),
-                                            child: (product!.image == null)
-                                                ? Center(
-                                                    child: Icon(
-                                                      Icons.image,
-                                                      color: ColorPalette
-                                                          .nileBlue
-                                                          .withOpacity(0.5),
-                                                    ),
-                                                  )
-                                                : CachedNetworkImage(
-                                                    fit: BoxFit.cover,
-                                                    imageUrl: product!.image!,
-                                                    errorWidget:
-                                                        (context, s, a) {
-                                                      return Icon(
-                                                        Icons.image,
-                                                        color: ColorPalette
-                                                            .nileBlue
-                                                            .withOpacity(0.5),
-                                                      );
-                                                    },
+                                            color: ColorPalette.white,
+                                            child: Container(
+                                                color: ColorPalette.timberGreen
+                                                    .withOpacity(0.1),
+                                                child:
+
+                                                Padding(
+                                                  padding: const EdgeInsets.only(top:30.0,left:12,right: 12),
+                                                  child: Column(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.qr_code_scanner_sharp,
+                                                        size: 35,
+                                                        color: darkTextColor,
+                                                      ),
+
+                                                    ],
+
                                                   ),
+                                                )
+                                              //     : CachedNetworkImage(
+                                              //   fit: BoxFit.cover,
+                                              //   imageUrl: newProduct.image!,
+                                              //   errorWidget:
+                                              //       (context, s, a) {
+                                              //     return Icon(
+                                              //       Icons.image,
+                                              //       color: ColorPalette
+                                              //           .nileBlue
+                                              //           .withOpacity(0.5),
+                                              //     );
+                                              //   },
+                                              // ),
+                                            ),
                                           ),
                                         ),
                                       ),

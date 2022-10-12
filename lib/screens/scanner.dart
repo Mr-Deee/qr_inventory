@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:qr_inventory/screens/qrcode.dart';
-import 'package:qr_inventory/screens/result.dart';
+
 import 'package:qr_inventory/screens/sidebar.dart';
 import 'package:intl/intl.dart';
 import '../constants.dart';
@@ -463,11 +463,7 @@ class _ScanScreenState extends State<ScanScreen> {
                                                 color: ColorPalette.nileBlue
                                                     .withOpacity(0.1),
                                               ),]),
-                                                child:
-
-
-
-                                                Padding(
+                                                child: Padding(
                                                   padding: EdgeInsets.only(
                                                     left:38,
                                                     bottom: 5,
