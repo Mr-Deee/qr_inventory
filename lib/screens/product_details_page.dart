@@ -74,7 +74,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             Navigator.of(context).pop();
           },
           splashColor: ColorPalette.bondyBlue,
-          backgroundColor: ColorPalette.pacificBlue,
+          backgroundColor: Colors.amber,
           child: const Icon(
             Icons.done,
             color: ColorPalette.white,
@@ -82,10 +82,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         ),
       ),
       body: Container(
-        color: ColorPalette.pacificBlue,
+        color: Colors.amber,
         child: SafeArea(
           child: Container(
-            color: ColorPalette.aquaHaze,
+            color: Colors.amber,
             height: double.infinity,
             width: double.infinity,
             child: Column(
@@ -99,7 +99,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   width: double.infinity,
                   height: 90,
                   decoration: const BoxDecoration(
-                    color: ColorPalette.pacificBlue,
+                        color: Colors.amber,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(16),
                       bottomRight: Radius.circular(16),

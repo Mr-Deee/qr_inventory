@@ -58,7 +58,7 @@ class _NewProductPageState extends State<NewProductPage> {
             Navigator.of(context).pop();
           },
           splashColor: ColorPalette.bondyBlue,
-          backgroundColor: ColorPalette.pacificBlue,
+          backgroundColor:Colors.amber,
           child: const Icon(
             Icons.done,
             color: ColorPalette.white,
@@ -68,10 +68,10 @@ class _NewProductPageState extends State<NewProductPage> {
       body:
 
       Container(
-        color: ColorPalette.pacificBlue,
+        color: Colors.amber,
         child: SafeArea(
           child: Container(
-            color: ColorPalette.aquaHaze,
+            color: Colors.amber,
             height: double.infinity,
             width: double.infinity,
             child: Column(
@@ -85,7 +85,7 @@ class _NewProductPageState extends State<NewProductPage> {
                   width: double.infinity,
                   height: 90,
                   decoration: const BoxDecoration(
-                    color: ColorPalette.pacificBlue,
+                    color: Colors.amber,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(16),
                       bottomRight: Radius.circular(16),
@@ -342,25 +342,7 @@ class _NewProductPageState extends State<NewProductPage> {
                                         const SizedBox(
                                           height: 20,
                                         ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: ColorPalette.white,
-                                            borderRadius:
-                                            BorderRadius.circular(12),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                offset: const Offset(0, 3),
-                                                blurRadius: 6,
-                                                color: ColorPalette.nileBlue
-                                                    .withOpacity(0.1),
-                                              ),
-                                            ],
-                                          ),
-                                          height: 50,
 
-
-
-                                        ),
                                         const SizedBox(
                                           height: 20,
                                         ),

@@ -28,7 +28,8 @@ class ProductGroupCard extends StatelessWidget {
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: ColorPalette.white,
+            color:Colors.amber,
+            //ColorPalette.white,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(

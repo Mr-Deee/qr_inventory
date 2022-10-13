@@ -28,7 +28,9 @@ class ProductCard extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 10),
         height: 147,
         decoration: BoxDecoration(
-          color: ColorPalette.white,
+          color: Colors.amber,
+
+          //ColorPalette.white,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
@@ -47,7 +49,7 @@ class ProductCard extends StatelessWidget {
               child: (product!.image == null)
                   ? Center(
                       child: Icon(
-                        Icons.image,
+                        Icons.qr_code,
                         color: ColorPalette.nileBlue.withOpacity(0.5),
                       ),
                     )

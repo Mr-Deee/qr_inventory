@@ -43,7 +43,7 @@ class ProductGroupPage extends StatelessWidget {
                 );
               },
               splashColor: ColorPalette.bondyBlue,
-              backgroundColor: ColorPalette.pacificBlue,
+              backgroundColor:Colors.amber,
               child: const Icon(
                 Icons.add,
                 color: ColorPalette.white,
@@ -69,7 +69,7 @@ class ProductGroupPage extends StatelessWidget {
                 );
               },
               splashColor: ColorPalette.bondyBlue,
-              backgroundColor: ColorPalette.pacificBlue,
+              backgroundColor:Colors.amber,
               child: const Icon(
                 Icons.qr_code,
                 color: ColorPalette.white,
@@ -79,10 +79,10 @@ class ProductGroupPage extends StatelessWidget {
         ],
       ),
       body: Container(
-        color: ColorPalette.pacificBlue,
+        color:Colors.amber,
         child: SafeArea(
           child: Container(
-            color: ColorPalette.aquaHaze,
+            color:  const Color(0xffcae8ff),
             height: double.infinity,
             width: double.infinity,
             child: Column(
@@ -96,7 +96,7 @@ class ProductGroupPage extends StatelessWidget {
                   width: double.infinity,
                   height: 90,
                   decoration: const BoxDecoration(
-                    color: ColorPalette.pacificBlue,
+                    color:Colors.amber,
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(16),
                       bottomRight: Radius.circular(16),
