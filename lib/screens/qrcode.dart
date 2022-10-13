@@ -19,7 +19,7 @@ class _QrCodeGenerationScreenState extends State<QrCodeGenerationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: Colors.amber,
       key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: appBarColor,

@@ -132,18 +132,18 @@ class _ScanScreenState extends State<ScanScreen> {
             Navigator.of(context).pop();
           },
           splashColor: ColorPalette.bondyBlue,
-          backgroundColor: ColorPalette.pacificBlue,
+          backgroundColor: Colors.amber,
           child: const Icon(
             Icons.done,
             color: ColorPalette.white,
           ),
         ),
       ),
-      backgroundColor: bgColor,
+      backgroundColor: Colors.amber,
       key: _scaffoldKey,
-      endDrawer: const Sidebar(),
+      // endDrawer: const Sidebar(),
       appBar: AppBar(
-        backgroundColor: appBarColor,
+        backgroundColor: Colors.amber,
         leading: IconButton(
           icon: const Icon(
             Icons.menu_open_sharp,
@@ -159,16 +159,14 @@ class _ScanScreenState extends State<ScanScreen> {
             fontSize: 22,
           ),
         ),
-        actions: [
 
-        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       body: Container(
-        color: ColorPalette.pacificBlue,
+        color: Colors.amber,
         child: SafeArea(
           child: Container(
-            color: ColorPalette.aquaHaze,
+            color: Colors.amber,
             height: double.infinity,
             width: double.infinity,
             child: Column(
