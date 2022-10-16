@@ -18,7 +18,7 @@ import '../models/addedproduct.dart';
 import '../utils/color_palette.dart';
 import '../widgets/location_drop_down.dart';
 import 'home.dart';
-
+import 'package:intl/intl.dart';
 class ScanScreen extends StatefulWidget {
   const ScanScreen({Key? key, this.group, })
       : super(key: key);
@@ -103,10 +103,25 @@ class _ScanScreenState extends State<ScanScreen> {
       newProduct.barcode = barcodeScanRes;
     });
   }
+  getCurrentDate() {
+    var date = DateTime.now().toString();
 
+    var dateParse = DateTime.parse(date);
+
+    var formattedDate = "${dateParse.day}-${dateParse.month}-${dateParse.year}";
+
+    return formattedDate;
+  }
   @override
   void initState() {
+    getCurrentDate();
 
+    if(newProduct.ExpiryDate! == getCurrentDate()){
+
+
+     // push notification
+
+    }
     super.initState();
   }
 
