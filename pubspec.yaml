@@ -47,7 +47,7 @@ dependencies:
   flutter_barcode_scanner: ^2.0.0
   barcode_scanner: ^3.2.2
   flutter_barcode_listener: ^0.1.3
-
+  firebase_messaging:
   loading_animation_widget: ^1.1.0+3
   syncfusion_flutter_barcodes: ^20.1.47
   #share_files_and_screenshot_widgets: ^1.0.6

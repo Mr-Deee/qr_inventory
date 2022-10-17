@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:qr_inventory/screens/addproduct.dart';
 import 'package:qr_inventory/screens/qrcode.dart';
 import 'package:qr_inventory/screens/scanner.dart';
 import 'package:qr_inventory/screens/sidebar.dart';
@@ -20,8 +22,64 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+FirebaseFirestore db = FirebaseFirestore.instance;
+String?docID;
+getproducts()async{
 
+  QuerySnapshot querySnapshot = (await db
+      .collection('products')
+      .doc(docID)
+      .collection('ExpiryDate')
+      .get()) ;
+  return querySnapshot;
+}
+
+getCurrentDate() {
+  var date = DateTime.now().toString();
+
+  var dateParse = DateTime.parse(date);
+
+  var formattedDate = "${dateParse.day}-${dateParse.month}-${dateParse.year}";
+print(formattedDate);
+print(newProduct.Expiry);
+  return formattedDate;
+}
 class _HomeScreenState extends State<HomeScreen> {
+  final Product newProduct = Product();
+
+
+  String messageTitle = "Empty";
+  String notificationAlert = "alert";
+
+  final FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  @override
+  void initState() {
+    getCurrentDate();
+    getproducts();
+    if(newProduct.Expiry==newProduct.Expiry){
+
+print(db);
+print(getproducts());
+print("ssssssssssss");
+
+    }
+
+    // if (newProduct.Expiry == getCurrentDate()) {
+    //   FirebaseMessaging? _firebaseMessaging;
+    //   _firebaseMessaging?.getToken().then((token) {
+    //     print("token is $token");
+    //     print(getCurrentDate());
+    //   });
+    // }
+
+    // push notification
+
+
+    super.initState();
+  }
+
+
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -30,9 +88,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    Size size = MediaQuery
+        .of(context)
+        .size;
+    double width = MediaQuery
+        .of(context)
+        .size
+        .width;
+    double height = MediaQuery
+        .of(context)
+        .size
+        .height;
     return Scaffold(
       backgroundColor: const Color(0xffcae8ff),
       key: _scaffoldKey,
@@ -57,7 +123,10 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: const Sidebar(),
       body: Container(
         padding: const EdgeInsets.all(1),
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -74,7 +143,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         decoration: BoxDecoration(
                           border: Border.all(
                               width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor),
+                              color: Theme
+                                  .of(context)
+                                  .scaffoldBackgroundColor),
                           boxShadow: [
                             BoxShadow(
                                 spreadRadius: 2,
@@ -157,14 +228,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                             _newProductGroup.text != "") {
                                           try {
                                             final DocumentSnapshot<
-                                                    Map<String, dynamic>> _doc =
-                                                await _firestore
-                                                    .collection("utils")
-                                                    .doc("productGroups")
-                                                    .get();
+                                                Map<String, dynamic>> _doc =
+                                            await _firestore
+                                                .collection("utils")
+                                                .doc("productGroups")
+                                                .get();
                                             final List<dynamic> _tempList =
-                                                _doc.data()!['list']
-                                                    as List<dynamic>;
+                                            _doc.data()!['list']
+                                            as List<dynamic>;
                                             if (_tempList.contains(
                                                 _newProductGroup.text)) {
                                               showTextToast(
@@ -194,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         width: 90,
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(20),
+                                          BorderRadius.circular(20),
                                           color: ColorPalette.pacificBlue,
                                           boxShadow: [
                                             BoxShadow(
@@ -224,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         },
                         splashColor: ColorPalette.bondyBlue,
-                        backgroundColor:Colors.amber,
+                        backgroundColor: Colors.amber,
                         child: const Icon(
                           Icons.add,
                           color: Colors.black54,
@@ -236,18 +307,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    width: MediaQuery.of(context).size.width,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width,
                     height: height / 0.99,
                     decoration: BoxDecoration(
                       borderRadius:
                       BorderRadius.circular(20),
                       color: const Color(0xffcae8ff),
                       border: Border.all(
-                          width: 4,
-                          color: const Color(0xffcae8ff),),
+                        width: 4,
+                        color: const Color(0xffcae8ff),),
 
 
-                          //Theme.of(context).scaffoldBackgroundColor),
+                      //Theme.of(context).scaffoldBackgroundColor),
                       boxShadow: [
                         BoxShadow(
                             spreadRadius: 2,
@@ -291,20 +365,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                   stream: _firestore
                                       .collection("utils")
                                       .snapshots(),
-                                  builder: (
-                                    BuildContext context,
-                                    AsyncSnapshot<
-                                            QuerySnapshot<Map<String, dynamic>>>
-                                        snapshot,
-                                  ) {
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<
+                                          QuerySnapshot<Map<String, dynamic>>>
+                                      snapshot,) {
                                     if (snapshot.hasData) {
                                       final List<dynamic> _productGroups =
-                                          snapshot.data!.docs[0].data()['list']
-                                              as List<dynamic>;
+                                      snapshot.data!.docs[0].data()['list']
+                                      as List<dynamic>;
                                       _productGroups.sort();
                                       return GridView.builder(
                                         gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 2,
                                           childAspectRatio: 2,
                                           crossAxisSpacing: 20,
@@ -314,7 +386,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         itemBuilder: (context, index) {
                                           return ProductGroupCard(
                                             name:
-                                                _productGroups[index] as String,
+                                            _productGroups[index] as String,
                                             key: UniqueKey(),
                                           );
                                         },
@@ -348,3 +420,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+
+
