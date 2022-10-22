@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:qr_inventory/screens/Expiredproduct.dart';
 import 'package:qr_inventory/screens/qrcode.dart';
 import 'package:qr_inventory/screens/scanner.dart';
 
@@ -81,11 +82,11 @@ class _SidebarState extends State<Sidebar> {
           ),
           ListTile(
             leading: Icon(
-              Icons.qr_code,
+              Icons.date_range,
               color: darkTextColor,
             ),
             title: Text(
-              'Generate QR code',
+              'Expiry Date',
               style: TextStyle(
                 color: darkTextColor,
                 fontSize: 18,
@@ -95,7 +96,10 @@ class _SidebarState extends State<Sidebar> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const QrCodeGenerationScreen(),
+                  builder: (context) =>  ExpiredProducts(),
+
+
+                  //QrCodeGenerationScreen(),
                 ),
               );
             },

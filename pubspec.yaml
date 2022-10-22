@@ -50,6 +50,7 @@ dependencies:
   firebase_messaging:
   loading_animation_widget: ^1.1.0+3
   expansion_tile_card: ^2.0.0
+  intl:
   syncfusion_flutter_barcodes: ^20.1.47
   #share_files_and_screenshot_widgets: ^1.0.6
 

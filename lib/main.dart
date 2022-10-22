@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:qr_inventory/screens/Expiredproduct.dart';
 import 'package:qr_inventory/screens/Registration.dart';
 import 'package:qr_inventory/screens/home.dart';
 import 'package:qr_inventory/screens/loginScreen.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginScreen(),
         '/home': (context) => HomeScreen(),
         '/product_details':(context)=>NewProductPage(),
+        'ExpiryDate':(context)=>ExpiredProducts(),
 
 
 
