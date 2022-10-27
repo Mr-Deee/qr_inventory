@@ -1,10 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:intl/intl.dart';
+
+import '../main.dart';
 
 class ExpiredProducts extends StatefulWidget {
   const ExpiredProducts({Key? key}) : super(key: key);
@@ -19,6 +23,83 @@ class _ExpiredProductsState extends State<ExpiredProducts> {
   Color _textColor = Colors.black;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+
+  FirebaseFirestore? Expirydat;
+  @override
+  void initState() {
+    super.initState();
+    getToken();
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        flutterLocalNotificationsPlugin.show(
+            notification.hashCode,
+            notification.title,
+            notification.body,
+            NotificationDetails(
+              android: AndroidNotificationDetails(
+                channel.id,
+                channel.name,
+                color: Colors.blue,
+                playSound: true,
+                icon: '@mipmap/ic_launcher',
+              ),
+            ));
+      }
+    });
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('A new onMessageOpenedApp event was published!');
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      if (notification != null && android != null) {
+        showDialog(
+            context: context,
+            builder: (_) {
+              return AlertDialog(
+                title: Text("Expired Product"
+                ),
+                //Text(notification.title),
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [Text('Expired Product',)]
+                  ),
+                ),
+              );
+            });
+      }
+    });
+  }
+
+  void getToken() async {
+    await FirebaseMessaging.instance.getToken().then(
+            (token) {
+          setState(() {
+            token = token;
+            print(token);
+          });
+
+        }
+    );
+  }
+  void showNotification() {
+    setState(() {
+     // _counter++;
+    });
+    flutterLocalNotificationsPlugin.show(
+        0,
+        "Testing $Expirydat",
+        "How you doin ?",
+        NotificationDetails(
+            android: AndroidNotificationDetails(channel.id, channel.name,
+                importance: Importance.high,
+                color: Colors.blue,
+                playSound: true,
+                icon: '@mipmap/ic_launcher')));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +167,7 @@ class _ExpiredProductsState extends State<ExpiredProducts> {
                               height: size.height,
                               child: StreamBuilder(
                                   stream: _firestore
-                                      .collection("products").where("ExpiryDate",  isGreaterThanOrEqualTo: dateStr)
+                                      .collection("products").where("ExpiryDate",  isLessThanOrEqualTo: dateStr)
                                       .orderBy('ExpiryDate')
                                       .snapshots(),
 
@@ -442,309 +523,6 @@ class _ExpiredProductsState extends State<ExpiredProducts> {
                                     return CircularProgressIndicator();
                                   }
 
-                                  //
-                                  // FirebaseAnimatedList(
-                                  //     query: clientRequestRef,
-                                  //     itemBuilder: (BuildContext context,
-                                  //         DataSnapshot snapshot,
-                                  //         Animation<double> animation,
-                                  //         int index) {
-                                  //       return Padding(
-                                  //         padding: const EdgeInsets.only(
-                                  //             top: 10.0, left: 10.0, right: 10.0),
-                                  //         child: ExpansionTileCard(
-                                  //           baseColor: Colors.cyan[50],
-                                  //           expandedColor: Color(0xff48acf0),
-                                  //           elevation: 8,
-                                  //           onExpansionChanged: (expanded) {
-                                  //             setState(() {
-                                  //               if (expanded) {
-                                  //                 _textColor = Colors.white;
-                                  //               } else {
-                                  //                 _textColor = Colors.black;
-                                  //               }
-                                  //             });
-                                  //           },
-                                  //           shadowColor: Colors.grey,
-                                  //           // shape: const RoundedRectangleBorder(
-                                  //           //     borderRadius: BorderRadius.all(
-                                  //           //       Radius.circular(20),
-                                  //           //     ),
-                                  //           //     side: BorderSide(
-                                  //           //         width: 2,
-                                  //           //         color: Colors.white38)),
-                                  //           //color: Colors.white,
-                                  //
-                                  //           title: ListView(
-                                  //               scrollDirection: Axis.vertical,
-                                  //               physics:
-                                  //               const NeverScrollableScrollPhysics(),
-                                  //               shrinkWrap: true,
-                                  //               padding: const EdgeInsets.all(0.0),
-                                  //               children: <Widget>[
-                                  //
-                                  //                 Column(children: [
-                                  //                   // scrollDirection: Axis.horizontal,
-                                  //                   Row(
-                                  //                     mainAxisAlignment:
-                                  //                     MainAxisAlignment.spaceEvenly,
-                                  //                     children: [
-                                  //                       Padding(
-                                  //                         padding:
-                                  //                         const EdgeInsets.all(4.0),
-                                  //                         child: Column(
-                                  //                           children: [
-                                  //                             Container(
-                                  //                                 width: 80,
-                                  //                                 height: 80,
-                                  //                                 decoration:
-                                  //                                 BoxDecoration(
-                                  //                                   border: Border.all(
-                                  //                                       width: 4,
-                                  //                                       color: Theme.of(
-                                  //                                           context)
-                                  //                                           .scaffoldBackgroundColor),
-                                  //                                   boxShadow: [
-                                  //                                     BoxShadow(
-                                  //                                         spreadRadius: 2,
-                                  //                                         blurRadius: 10,
-                                  //                                         color: Colors
-                                  //                                             .black
-                                  //                                             .withOpacity(
-                                  //                                             0.1),
-                                  //                                         offset:
-                                  //                                         const Offset(
-                                  //                                             0, 10))
-                                  //                                   ],
-                                  //                                   shape:
-                                  //                                   BoxShape.circle,
-                                  //                                   // image: const DecorationImage(
-                                  //                                   //     fit: BoxFit.cover,
-                                  //                                   //     image: NetworkImage(
-                                  //                                   //       "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
-                                  //                                   //     )
-                                  //                                   // )
-                                  //                                 ),
-                                  //                                 // child: CircleAvatar(
-                                  //                                 //   backgroundColor:
-                                  //                                 //   Colors.grey,
-                                  //                                 //   radius: 70,
-                                  //                                 //   backgroundImage: RModel[
-                                  //                                 //   index]
-                                  //                                 //       .profilepicture!
-                                  //                                 //       .toString() !=
-                                  //                                 //       null
-                                  //                                 //       ? NetworkImage(
-                                  //                                 //     OModel[index]
-                                  //                                 //         .profilepicture
-                                  //                                 //         .toString(),
-                                  //                                 //   )
-                                  //                                 //       : null,
-                                  //                                 // )),
-                                  //                             //email
-                                  //                             )],
-                                  //                         ),
-                                  //                       ),
-                                  //                       Row(
-                                  //                         children: [
-                                  //                           Column(
-                                  //                             children: [
-                                  //                               Padding(
-                                  //                                 padding:
-                                  //                                 const EdgeInsets
-                                  //                                     .all(3.0),
-                                  //                                 child: Text(
-                                  //                               rModel[index].clientname.toString(),
-                                  //                                   style:
-                                  //                                   TextStyle(
-                                  //                                       fontWeight:
-                                  //                                       FontWeight.bold,
-                                  //                                       fontSize: 18,
-                                  //                                       color:_textColor
-                                  //                                   ),
-                                  //                                 ),
-                                  //                               ),
-                                  //
-                                  //                               // Column(
-                                  //                               //   children: [
-                                  //                               //     Text(OModel[
-                                  //                               //     index]
-                                  //                               //         .Education
-                                  //                               //         .toString()),
-                                  //                               //   ],
-                                  //                               // ),
-                                  //                             ],
-                                  //                           ),
-                                  //                         ],
-                                  //                       ),
-                                  //
-                                  //                     ],
-                                  //                   ),
-                                  //                 ])
-                                  //               ]),
-                                  //           children: <Widget>[
-                                  //             Divider(
-                                  //               thickness: 1.0,
-                                  //               height: 1.0,
-                                  //             ),
-                                  //             // Align(
-                                  //             //   alignment: Alignment.centerLeft,
-                                  //             //   child: Padding(
-                                  //             //     padding: const EdgeInsets.symmetric(
-                                  //             //       horizontal: 16.0,
-                                  //             //       vertical: 8.0,
-                                  //             //     ),
-                                  //             //     child: Text(
-                                  //             //       OModel[index].Description.toString(),
-                                  //             //       style: Theme.of(context)
-                                  //             //           .textTheme
-                                  //             //           .bodyText2
-                                  //             //           ?.copyWith(fontSize: 16),
-                                  //             //     ),
-                                  //             //   ),
-                                  //             // ),
-                                  //             ButtonBar(
-                                  //               alignment: MainAxisAlignment.spaceAround,
-                                  //               buttonHeight: 52.0,
-                                  //               buttonMinWidth: 90.0,
-                                  //               children: <Widget>[
-                                  //                 FlatButton(
-                                  //                     shape: RoundedRectangleBorder(
-                                  //                         borderRadius:
-                                  //                         BorderRadius.circular(4.0)),
-                                  //                     onPressed: () {
-                                  //                       // cardA.currentState?.expand();
-                                  //                     },
-                                  //
-                                  //
-                                  //                     //phone
-                                  //                     child:     Row(
-                                  //                       children: [
-                                  //                         Padding(
-                                  //                             padding:
-                                  //                             const EdgeInsets.all(
-                                  //                                 1.0),
-                                  //                             child: Row(
-                                  //                                 mainAxisAlignment:
-                                  //                                 MainAxisAlignment
-                                  //                                     .spaceEvenly,
-                                  //                                 children: [
-                                  //                                   SizedBox(
-                                  //                                     width: 60.0,
-                                  //                                     height: 50.0,
-                                  //                                     child:
-                                  //                                     RaisedButton(
-                                  //                                       color: Colors
-                                  //                                           .blue,
-                                  //                                       shape: RoundedRectangleBorder(
-                                  //                                           borderRadius:
-                                  //                                           BorderRadius.circular(
-                                  //                                               24.0),
-                                  //                                           side: const BorderSide(
-                                  //                                               color: Colors
-                                  //                                                   .blueAccent)),
-                                  //                                       onPressed:
-                                  //                                           () async {
-                                  //                                         launch(
-                                  //                                             ('tel://${rModel[index].phone}'));
-                                  //                                       },
-                                  //                                       child: Padding(
-                                  //                                         padding:
-                                  //                                         const EdgeInsets
-                                  //                                             .all(
-                                  //                                             1.0),
-                                  //                                         child:
-                                  //                                         SingleChildScrollView(
-                                  //                                           scrollDirection:
-                                  //                                           Axis.horizontal,
-                                  //                                           child: Row(
-                                  //                                             mainAxisAlignment:
-                                  //                                             MainAxisAlignment
-                                  //                                                 .spaceEvenly,
-                                  //                                             children: const [
-                                  //                                               Icon(
-                                  //                                                 Icons
-                                  //                                                     .call,
-                                  //                                                 color:
-                                  //                                                 Colors.black,
-                                  //                                                 size:
-                                  //                                                 26.0,
-                                  //                                               ),
-                                  //                                             ],
-                                  //                                           ),
-                                  //                                         ),
-                                  //                                       ),
-                                  //                                     ),
-                                  //                                   )
-                                  //                                 ])),
-                                  //                       ],
-                                  //                     )
-                                  //                 ),
-                                  //                 FlatButton(
-                                  //                   shape: RoundedRectangleBorder(
-                                  //                       borderRadius:
-                                  //                       BorderRadius.circular(4.0)),
-                                  //                   onPressed: () {
-                                  //                     //cardA.currentState?.collapse();
-                                  //                   },
-                                  //                   child: Column(
-                                  //                     children: <Widget>[
-                                  //                       Icon(Icons.location_on, color:Colors.white),
-                                  //                       Padding(
-                                  //                         padding:
-                                  //                         const EdgeInsets.symmetric(
-                                  //                             vertical: 2.0),
-                                  //                       ),
-                                  //                       // SingleChildScrollView(
-                                  //                       //   scrollDirection: Axis.vertical,
-                                  //                       //   child: Container(
-                                  //                       //     height: 39,
-                                  //                       //     width:100,
-                                  //                       //     child: Text( OModel[index].location.toString(),
-                                  //                       //       style: const TextStyle(color: Colors.white),
-                                  //                       //     ),
-                                  //                       //   ),
-                                  //                       // ),
-                                  //                     ],
-                                  //                   ),
-                                  //                 ),
-                                  //                 FlatButton(
-                                  //                   shape: RoundedRectangleBorder(
-                                  //                       borderRadius:
-                                  //                       BorderRadius.circular(4.0)),
-                                  //                   onPressed: () {
-                                  //                     // setState(() {
-                                  //                     //
-                                  //                     //   state = "requesting";
-                                  //                     //   artianType = "bike";
-                                  //                     //
-                                  //                     // });
-                                  //
-                                  //                     showDialog(
-                                  //                         context: context,
-                                  //                         barrierDismissible: false,
-                                  //                         builder: (BuildContext context) => homePage());
-                                  //
-                                  //
-                                  //                   },
-                                  //                   child: Column(
-                                  //                     children: <Widget>[
-                                  //                       Icon(Icons.work,color: Colors.white,),
-                                  //                       Padding(
-                                  //                         padding:
-                                  //                         const EdgeInsets.symmetric(
-                                  //                             vertical: 2.0),
-                                  //                       ),
-                                  //                       Text('Request', style: TextStyle(color: Colors.white),),
-                                  //                     ],
-                                  //                   ),
-                                  //                 ),
-                                  //               ],
-                                  //             ),
-                                  //           ],
-                                  //         ),
-                                  //       );
-                                  //     }),
                                   ),
 
                               // const SizedBox(
@@ -770,4 +548,5 @@ class _ExpiredProductsState extends State<ExpiredProducts> {
       ),
     );
   }
+
 }

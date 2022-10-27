@@ -1,15 +1,39 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import '../main.dart';
 import '../models/addedproduct.dart';
 import '../screens/product_details_page.dart';
 import '../utils/color_palette.dart';
 
-class ExpiryCard extends StatelessWidget {
+class ExpiryCard extends StatefulWidget {
   const ExpiryCard({Key? key, this.product, this.docID}) : super(key: key);
   final Product? product;
   final String? docID;
+
+  @override
+  _ExpiryCardPageState createState() => _ExpiryCardPageState(product,docID);
+
+}
+class _ExpiryCardPageState extends State<ExpiryCard> {
+
+
+  final Product? product;
+  final String? docID;
+
+  _ExpiryCardPageState(this.product, this.docID);
+
+
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -184,4 +208,6 @@ class ExpiryCard extends StatelessWidget {
       ),
     );
   }
+
+
 }
