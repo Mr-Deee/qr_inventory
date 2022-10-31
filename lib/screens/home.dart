@@ -397,78 +397,82 @@ print("ssssssssssss");
                       //     )
                       // )
                     ),
-                    child: Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: SizedBox(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: const [
-                                  SizedBox(
-                                    height: 20,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: SizedBox(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: const [
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                    ],
                                   ),
+                                  const Text(
+                                    "Product Groups",
+                                    style: TextStyle(
+                                      color: ColorPalette.timberGreen,
+                                      fontSize: 20,
+                                      fontFamily: "Nunito",
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Expanded(
+                                    child: StreamBuilder(
+                                      stream: _firestore
+                                          .collection("utils")
+                                          .snapshots(),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot<
+                                              QuerySnapshot<Map<String, dynamic>>>
+                                          snapshot,) {
+                                        if (snapshot.hasData) {
+                                          final List<dynamic> _productGroups =
+                                          snapshot.data!.docs[0].data()['list']
+                                          as List<dynamic>;
+                                          _productGroups.sort();
+                                          return GridView.builder(
+                                            gridDelegate:
+                                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 2,
+                                              childAspectRatio: 2,
+                                              crossAxisSpacing: 20,
+                                              mainAxisSpacing: 20,
+                                            ),
+                                            itemCount: _productGroups.length,
+                                            itemBuilder: (context, index) {
+                                              return ProductGroupCard(
+                                                name:
+                                                _productGroups[index] as String,
+                                                key: UniqueKey(),
+                                              );
+                                            },
+                                          );
+                                        } else {
+                                          return const Center(
+                                            child: SizedBox(
+                                              height: 40,
+                                              width: 40,
+                                              child: CircularProgressIndicator(
+                                                color: ColorPalette.pacificBlue,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  )
                                 ],
                               ),
-                              const Text(
-                                "Product Groups",
-                                style: TextStyle(
-                                  color: ColorPalette.timberGreen,
-                                  fontSize: 20,
-                                  fontFamily: "Nunito",
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              Expanded(
-                                child: StreamBuilder(
-                                  stream: _firestore
-                                      .collection("utils")
-                                      .snapshots(),
-                                  builder: (BuildContext context,
-                                      AsyncSnapshot<
-                                          QuerySnapshot<Map<String, dynamic>>>
-                                      snapshot,) {
-                                    if (snapshot.hasData) {
-                                      final List<dynamic> _productGroups =
-                                      snapshot.data!.docs[0].data()['list']
-                                      as List<dynamic>;
-                                      _productGroups.sort();
-                                      return GridView.builder(
-                                        gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 2,
-                                          childAspectRatio: 2,
-                                          crossAxisSpacing: 20,
-                                          mainAxisSpacing: 20,
-                                        ),
-                                        itemCount: _productGroups.length,
-                                        itemBuilder: (context, index) {
-                                          return ProductGroupCard(
-                                            name:
-                                            _productGroups[index] as String,
-                                            key: UniqueKey(),
-                                          );
-                                        },
-                                      );
-                                    } else {
-                                      return const Center(
-                                        child: SizedBox(
-                                          height: 40,
-                                          width: 40,
-                                          child: CircularProgressIndicator(
-                                            color: ColorPalette.pacificBlue,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                  },
-                                ),
-                              )
-                            ],
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 )
