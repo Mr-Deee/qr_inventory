@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginScreen(),
         '/home': (context) => HomeScreen(),
         '/product_details':(context)=>NewProductPage(),
-        'ExpiryDate':(context)=>ExpiredProducts(),
+        '/ExpiryDate':(context)=>ExpiredProducts(),
 
 
 
