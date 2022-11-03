@@ -11,6 +11,7 @@ import 'package:qr_inventory/screens/sidebar.dart';
 import '../components/drawer/custom_drawer.dart';
 import '../constants.dart';
 import '../functions/toast.dart';
+import '../models/assistantmethods.dart';
 import '../models/product.dart';
 import '../utils/color_palette.dart';
 import '../widgets/product_card.dart';
@@ -65,7 +66,7 @@ print(getproducts());
 print("ssssssssssss");
 
     }
-
+AssistantMethod.getCurrentOnlineUserInfo(context);
     // if (newProduct.Expiry == getCurrentDate()) {
     //   FirebaseMessaging? _firebaseMessaging;
     //   _firebaseMessaging?.getToken().then((token) {

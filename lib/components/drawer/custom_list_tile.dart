@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomListTile extends StatelessWidget {
-  final bool isCollapsed;
+  // final bool isCollapsed;
   final IconData icon;
   final String title;
   final IconData? doHaveMoreOptions;
@@ -11,7 +11,7 @@ class CustomListTile extends StatelessWidget {
 
   const CustomListTile({
     Key? key,
-    required this.isCollapsed,
+    // required this.isCollapsed,
     required this.icon,
     required this.title,
     this.doHaveMoreOptions,
@@ -24,7 +24,7 @@ class CustomListTile extends StatelessWidget {
       onTap: ontap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 500),
-        width: isCollapsed ? 300 : 80,
+        width:   300 ,
         height: 80,
         child: Row(
           children: [
@@ -54,8 +54,8 @@ class CustomListTile extends StatelessWidget {
                 ),
               ),
             ),
-            if (isCollapsed) const SizedBox(width: 10),
-            if (isCollapsed)
+             const SizedBox(width: 10),
+
               Expanded(
                 flex: 3,
                 child: Row(
@@ -96,8 +96,7 @@ class CustomListTile extends StatelessWidget {
                   ],
                 ),
               ),
-            if (isCollapsed) const Spacer(),
-            if (isCollapsed)
+
               Expanded(
                 flex: 1,
                 child: doHaveMoreOptions != null

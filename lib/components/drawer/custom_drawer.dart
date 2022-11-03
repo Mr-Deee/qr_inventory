@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 
 
 import '../../screens/Expiredproduct.dart';
+import '../../screens/ProfilePage.dart';
 import '../../screens/home.dart';
 import 'Top_user_info.dart';
 import 'custom_list_tile.dart';
@@ -29,7 +30,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
         curve: Curves.easeInOutCubic,
         duration: const Duration(milliseconds: 500),
 
-        width: _isCollapsed ? 300 : 70,
+        width: 300,
         margin: const EdgeInsets.only(bottom: 30, top: 70),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -50,7 +51,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 color: Colors.black,
               ),
              CustomListTile(
-                  isCollapsed: _isCollapsed,
+                  //isCollapsed: _isCollapsed,
                   icon: Icons.home_outlined,
                   title: 'Home',
                   infoCount: 0, ontap: () {   Navigator.push(
@@ -59,21 +60,31 @@ class _CustomDrawerState extends State<CustomDrawer> {
                      builder: (context) =>  HomeScreen ())); },
                 ),
 
-              // CustomListTile(
-              //   isCollapsed: _isCollapsed,
-              //   icon: Icons.person,
-              //   title: 'Profile',
-              //   infoCount: 0, ontap: () {Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) =>  Profilepage ()));  },
-              // ),
+              CustomListTile(
+                //isCollapsed: _isCollapsed,
+                icon: Icons.person,
+                title: 'Profile',
+                infoCount: 0, ontap: () {Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>  Profilepage ()));  },
+              ),
 
               CustomListTile(
-                isCollapsed: _isCollapsed,
+               // isCollapsed: _isCollapsed,
                 icon: Icons.calendar_month,
                 title: 'Expiry',
                 infoCount: 8, ontap: () {Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ExpiredProducts()));  },
+              ),
+
+              CustomListTile(
+                //isCollapsed: _isCollapsed,
+                icon: Icons.settings,
+                title: 'Settings',
+                infoCount: 0, ontap: () {Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => ExpiredProducts()));  },
@@ -83,7 +94,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               const Divider(color: Colors.grey),
               const Spacer(),
               CustomListTile(
-                isCollapsed: _isCollapsed,
+                //isCollapsed: _isCollapsed,
                 icon: Icons.help,
                 title: 'About',
                 infoCount: 0,
@@ -97,26 +108,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
               // ),
               const SizedBox(height: 10),
 
-              Align(
-                alignment: _isCollapsed
-                    ? Alignment.bottomRight
-                    : Alignment.bottomCenter,
-                child: IconButton(
-                  splashColor: Colors.transparent,
-                  icon: Icon(
-                    _isCollapsed
-                        ? Icons.arrow_back_ios
-                        : Icons.arrow_forward_ios,
-                    color: Colors.black,
-                    size: 16,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _isCollapsed = !_isCollapsed;
-                    });
-                  },
-                ),
-              ),
+
             ],
           ),
         ),

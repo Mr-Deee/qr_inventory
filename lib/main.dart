@@ -4,12 +4,15 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_inventory/screens/Expiredproduct.dart';
 import 'package:qr_inventory/screens/Registration.dart';
 import 'package:qr_inventory/screens/home.dart';
 import 'package:qr_inventory/screens/loginScreen.dart';
 import 'package:qr_inventory/screens/addproduct.dart';
 import 'package:qr_inventory/screens/splash.dart';
+
+import 'models/Users.dart';
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', // title// description
@@ -37,7 +40,13 @@ void main() async {
     badge: true,
     sound: true,
   );
-  runApp(const MyApp());
+  runApp(  MultiProvider(providers: [
+    ChangeNotifierProvider<Users>(
+    create: (context) => Users(),
+  ),
+
+
+    ], child:  MyApp()));
 }
 
 
