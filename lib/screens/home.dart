@@ -8,6 +8,7 @@ import 'package:qr_inventory/screens/qrcode.dart';
 import 'package:qr_inventory/screens/scanner.dart';
 import 'package:qr_inventory/screens/sidebar.dart';
 
+import '../components/drawer/custom_drawer.dart';
 import '../constants.dart';
 import '../functions/toast.dart';
 import '../models/product.dart';
@@ -180,7 +181,7 @@ print("ssssssssssss");
               }),
         ],
       ),
-      drawer: const Sidebar(),
+      drawer:CustomDrawer(),
       body: Container(
         padding: const EdgeInsets.all(1),
         width: MediaQuery

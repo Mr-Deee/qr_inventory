@@ -44,7 +44,7 @@ class BottomUserInfo extends StatelessWidget {
                   print('yes');
                   FirebaseAuth.instance.signOut();
                   Navigator.pushNamedAndRemoveUntil(
-                      context, Signin.idScreen, (route) => false);
+                      context,'/registration', (route) => false);
                   // Navigator.of(context).pop();
                 },
               ),
@@ -74,95 +74,95 @@ class BottomUserInfo extends StatelessWidget {
           ? Center(
               child: Row(
                 children: [
-                  Expanded(
-                    flex: 2,
-                    child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 10),
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.grey,
-                          radius: 70,
-                          backgroundImage: Provider.of<Users>(context)
-                                      .userInfo
-                                      ?.profilepicture !=
-                                  null
-                              ? NetworkImage(
-                                  Provider.of<Users>(context)
-                                      .userInfo!
-                                      .profilepicture!,
-                                )
-                              : null,
-                        )),
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(1.0),
-                          child: Expanded(
-                            child: Align(
-                              alignment: Alignment.topLeft,
-                              child: Container(
-                                // physics: NeverScrollableScrollPhysics(),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      '',
-                                      style:
-                                          Theme.of(context).textTheme.caption,
-                                    ),
-                                    if (Provider.of<Users>(context)
-                                            .userInfo
-                                            ?.firstname !=
-                                        null)
-                                      Text(
-                                        Provider.of<Users>(context)
-                                            .userInfo!
-                                            .firstname!,
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                        ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.clip,
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const Profilepage()));
-                            },
-                            child: Text(
-                              'Profile',
-                              style: TextStyle(
-                                color: Colors.lightBlue,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Expanded(
+                  //   flex: 2,
+                  //   child: Container(
+                  //       margin: const EdgeInsets.symmetric(horizontal: 10),
+                  //       width: 40,
+                  //       height: 40,
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.grey,
+                  //         borderRadius: BorderRadius.circular(20),
+                  //       ),
+                  //       child: CircleAvatar(
+                  //         backgroundColor: Colors.grey,
+                  //         radius: 70,
+                  //         backgroundImage: Provider.of<Users>(context)
+                  //                     .userInfo
+                  //                     ?.profilepicture !=
+                  //                 null
+                  //             ? NetworkImage(
+                  //                 Provider.of<Users>(context)
+                  //                     .userInfo!
+                  //                     .profilepicture!,
+                  //               )
+                  //             : null,
+                  //       )),
+                  // ),
+                  // Expanded(
+                  //   flex: 5,
+                  //   child: Column(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: [
+                  //       Padding(
+                  //         padding: const EdgeInsets.all(1.0),
+                  //         child: Expanded(
+                  //           child: Align(
+                  //             alignment: Alignment.topLeft,
+                  //             child: Container(
+                  //               // physics: NeverScrollableScrollPhysics(),
+                  //               child: Column(
+                  //                 children: [
+                  //                   Text(
+                  //                     '',
+                  //                     style:
+                  //                         Theme.of(context).textTheme.caption,
+                  //                   ),
+                  //                   if (Provider.of<Users>(context)
+                  //                           .userInfo
+                  //                           ?.firstname !=
+                  //                       null)
+                  //                     Text(
+                  //                       Provider.of<Users>(context)
+                  //                           .userInfo!
+                  //                           .firstname!,
+                  //                       style: TextStyle(
+                  //                         color: Colors.black,
+                  //                         fontWeight: FontWeight.bold,
+                  //                         fontSize: 18,
+                  //                       ),
+                  //                       maxLines: 1,
+                  //                       overflow: TextOverflow.clip,
+                  //                     ),
+                  //                 ],
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ),
+                  //       ),
+                  //       // Expanded(
+                  //       //   child: GestureDetector(
+                  //       //     onTap: () {
+                  //       //       Navigator.push(
+                  //       //           context,
+                  //       //           MaterialPageRoute(
+                  //       //               builder: (context) =>
+                  //       //                   const Profilepage()));
+                  //       //     },
+                  //       //     child: Text(
+                  //       //       'Profile',
+                  //       //       style: TextStyle(
+                  //       //         color: Colors.lightBlue,
+                  //       //       ),
+                  //       //       maxLines: 1,
+                  //       //       overflow: TextOverflow.ellipsis,
+                  //       //     ),
+                  //       //   ),
+                  //       // ),
+                  //     ],
+                  //   ),
+                  // ),
                   const Spacer(),
                   Expanded(
                     flex: 2,
@@ -197,7 +197,7 @@ class BottomUserInfo extends StatelessWidget {
                                       FirebaseAuth.instance.signOut();
                                       Navigator.pushNamedAndRemoveUntil(
                                           context,
-                                          LoginScreen() , (route) => false);
+                                          '/login' , (route) => false);
                                       // Navigator.of(context).pop();
                                     },
                                   ),
@@ -227,30 +227,30 @@ class BottomUserInfo extends StatelessWidget {
             )
           : Column(
               children: [
-                Expanded(
-                  child: Container(
-                      margin: const EdgeInsets.only(top: 10),
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.grey,
-                        radius: 70,
-                        backgroundImage: Provider.of<Users>(context)
-                                    .userInfo
-                                    ?.profilepicture !=
-                                null
-                            ? NetworkImage(
-                                Provider.of<Users>(context)
-                                    .userInfo!
-                                    .profilepicture!,
-                              )
-                            : null,
-                      )),
-                ),
+                // Expanded(
+                //   child: Container(
+                //       margin: const EdgeInsets.only(top: 10),
+                //       width: 40,
+                //       height: 40,
+                //       decoration: BoxDecoration(
+                //         color: Colors.grey,
+                //         borderRadius: BorderRadius.circular(20),
+                //       ),
+                //       child: CircleAvatar(
+                //         backgroundColor: Colors.grey,
+                //         radius: 70,
+                //         backgroundImage: Provider.of<Users>(context)
+                //                     .userInfo
+                //                     ?.profilepicture !=
+                //                 null
+                //             ? NetworkImage(
+                //                 Provider.of<Users>(context)
+                //                     .userInfo!
+                //                     .profilepicture!,
+                //               )
+                //             : null,
+                //       )),
+                // ),
                 Expanded(
                   child: IconButton(
                     onPressed: () {    _showMyDialog();},
