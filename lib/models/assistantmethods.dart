@@ -27,16 +27,14 @@ class AssistantMethod{
     reference.once().then(( event) async {
       final dataSnapshot = event.snapshot;
       if (dataSnapshot.value!= null) {
-        //userCurrentInfo = Users.fromSnapshot(dataSnapshot);
-        // IF DATA CALLED FROM THE FIREBASE DOCUMENT ISN'T NULL
-        // =userCurrentInfo = Users.fromSnapshot(
-        //     dataSnapShot);ASSIGN DATA FROM SNAPSHOT TO 'USERS' OBJECT
+        print(
+            'assistant methods step 7:: call users document from firebase database using userId');
 
          DatabaseEvent event = await reference.once();
 
         context.read<Users>().setUser(Users.fromMap(Map<String, dynamic>.from(event.snapshot.value as dynamic)));
         print(
-            'assistant methods step 7:: assign users data to usersCurrentInfo object');
+            'assistant methods step 8:: assign users data to usersCurrentInfo object');
       }
     }
     );

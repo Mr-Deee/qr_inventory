@@ -66,7 +66,7 @@ print(getproducts());
 print("ssssssssssss");
 
     }
-AssistantMethod.getCurrentOnlineUserInfo(context);
+
     // if (newProduct.Expiry == getCurrentDate()) {
     //   FirebaseMessaging? _firebaseMessaging;
     //   _firebaseMessaging?.getToken().then((token) {
@@ -79,6 +79,9 @@ AssistantMethod.getCurrentOnlineUserInfo(context);
 
 
     super.initState();
+
+
+    AssistantMethod.getCurrentOnlineUserInfo(context);
   }
 
 
