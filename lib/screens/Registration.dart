@@ -35,7 +35,7 @@ class RegistrationScreen extends StatelessWidget {
                   height: 00.0,
                 ),
                 Text(
-                  "S.I.M.S",
+                  "TimeUp",
                   style: TextStyle(
                       fontSize: 30.0,
                       fontFamily: "Gilroy",

@@ -22,48 +22,50 @@ class CustomDrawerHeader extends StatelessWidget {
           width: double.infinity,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //const FlutterLogo(size: 30),
-                if (isColapsed) const SizedBox(width: 10),
-                if (isColapsed)
-                  Column(
-                    children: [
-                     Padding(
-                       padding: const EdgeInsets.all(8.0),
-                       child: Expanded(
-                          flex: 3,
+            child: SingleChildScrollView(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //const FlutterLogo(size: 30),
+                  if (isColapsed) const SizedBox(width: 10),
+                  if (isColapsed)
+                    Column(
+                      children: [
+                       Padding(
+                         padding: const EdgeInsets.all(8.0),
+                         child: Expanded(
+                            flex: 3,
 
-                          child: Text(
-                            'TimeUp',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                            child: Text(
+                              'TimeUp',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                              maxLines: 1,
                             ),
-                            maxLines: 1,
                           ),
-                        ),
-                     ),
-                    ],
-                  ),
-                if (isColapsed) const Spacer(),
-                // if (isColapsed)
-                //   Expanded(
-                //
-                //     flex: 1,
-                //     child: IconButton(
-                //       onPressed: () {},
-                //       icon: const Icon(
-                //         Icons.search,
-                //         color: Colors.black,
-                //       ),
-                //     ),
-                //   ),
+                       ),
+                      ],
+                    ),
+                  if (isColapsed) const Spacer(),
+                  // if (isColapsed)
+                  //   Expanded(
+                  //
+                  //     flex: 1,
+                  //     child: IconButton(
+                  //       onPressed: () {},
+                  //       icon: const Icon(
+                  //         Icons.search,
+                  //         color: Colors.black,
+                  //       ),
+                  //     ),
+                  //   ),
 
 
-              ],
+                ],
+              ),
             ),
           ),
         ),

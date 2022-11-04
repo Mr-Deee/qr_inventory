@@ -18,9 +18,9 @@ class LoginScreen extends StatelessWidget {
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Padding(
-            padding: const EdgeInsets.only(top: 209.0,right: 20,left: 20),
+            padding: const EdgeInsets.only(top: 209.0, right: 20, left: 20),
             child: Card(
-              color:  Colors.amber,
+                color: Colors.amber,
                 elevation: 10,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(35.0),
@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
                       height: 00.0,
                     ),
                     Text(
-                      "S.I.M.S",
+                      "TimeUp",
                       style: TextStyle(
                           fontSize: 30.0,
                           fontFamily: "Gilroy",
@@ -164,16 +164,16 @@ class LoginScreen extends StatelessWidget {
                     //     onPressed: () {
                     //
                     //     },
-                     GestureDetector(
-                       onTap: (){
-
-                         Navigator.pushNamedAndRemoveUntil(context, '/registration', (route) => false);
-                       },
-                       child: Text(
-                            'Do You Have An Account? Register',
-                            style: TextStyle(color: Colors.black38),
-                          ),
-                     )
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/registration', (route) => false);
+                      },
+                      child: Text(
+                        'Do You Have An Account? Register',
+                        style: TextStyle(color: Colors.black38),
+                      ),
+                    )
                   ]),
                 )),
           ),
