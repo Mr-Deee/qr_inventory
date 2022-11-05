@@ -37,7 +37,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             topRight: Radius.circular(10),
           ),
           //color: Color.fromRGBO(20, 20, 20, 1),
-          color: Colors.white,
+          color: const Color(0xffcae8ff),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -82,12 +82,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
               const Divider(color: Colors.grey),
               const Spacer(),
-              // CustomListTile(
-              //   isCollapsed: _isCollapsed,
-              //   icon: Icons.notifications,
-              //   title: 'Notifications',
-              //   infoCount: 2, ontap: () {  },
-              // ),
+              CustomListTile(
+                isCollapsed: _isCollapsed,
+                icon: Icons.help,
+                title: 'About',
+                infoCount: 0,
+                ontap: () {  },
+              ),
               // CustomListTile(
               //   isCollapsed: _isCollapsed,
               //   icon: Icons.settings,
