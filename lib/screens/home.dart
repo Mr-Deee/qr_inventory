@@ -3,20 +3,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_inventory/screens/addproduct.dart';
-import 'package:qr_inventory/screens/qrcode.dart';
-import 'package:qr_inventory/screens/scanner.dart';
-import 'package:qr_inventory/screens/sidebar.dart';
+
 
 import '../components/drawer/custom_drawer.dart';
 import '../constants.dart';
 import '../functions/toast.dart';
+import '../models/Users.dart';
 import '../models/assistantmethods.dart';
 import '../models/product.dart';
 import '../utils/color_palette.dart';
 import '../widgets/product_card.dart';
 import '../widgets/product_group_card.dart';
-import 'barcode.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -104,6 +104,9 @@ print("ssssssssssss");
         .of(context)
         .size
         .height;
+
+
+    var firstname = Provider.of<Users>(context).userInfo?.firstname!;
     return Scaffold(
       backgroundColor: const Color(0xffcae8ff),
       key: _scaffoldKey,
@@ -228,7 +231,7 @@ print("ssssssssssss");
                         ),
                       ),
                       Text(
-                        "GOOD MORNING SIR",
+                        "GOOD MORNING "+firstname!,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
 
