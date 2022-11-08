@@ -196,44 +196,49 @@ class _ExpiredProductsState extends State<ExpiredProducts> {
                                                             VerticalDirection.down,
                                                         children: <Widget>[
                                                           SizedBox(
-                                                            height: 5.0,
+                                                            height: 10.0,
                                                           ),
                                                           Padding(
                                                             padding:
                                                                 const EdgeInsets.only(
-                                                                    top: 3.0,
+                                                                    top: 6.0,
                                                                     left: 0,
                                                                     right: 0),
 
-                                                            child: ExpansionTileCard(
-                                                              baseColor:
-                                                                  Colors.cyan[50],
-                                                              expandedColor:
-                                                                  Color(0xff48acf0),
-                                                              elevation: 8,
-                                                              onExpansionChanged:
-                                                                  (expanded) {
-                                                                setState(() {
-                                                                  if (expanded) {
-                                                                    _textColor =
-                                                                        Colors.white;
-                                                                  } else {
-                                                                    _textColor =
-                                                                        Colors.black;
-                                                                  }
-                                                                });
-                                                              },
-                                                              shadowColor: Colors.grey,
-                                                              // shape: const RoundedRectangleBorder(
-                                                              //     borderRadius: BorderRadius.all(
-                                                              //       Radius.circular(20),
-                                                              //     ),
-                                                              //     side: BorderSide(
-                                                              //         width: 2,
-                                                              //         color: Colors.white38)),
-                                                              //color: Colors.white,
+                                                            child: Container(
+                                                              height: 80,
 
-                                                              title: ListView(
+                                                            decoration: BoxDecoration(
+
+
+
+
+
+
+                                                              color:Color(0xffcae8ff),
+
+                                                    borderRadius: BorderRadius.circular(15),
+                                                    boxShadow: [
+                                                    BoxShadow(
+                                                    color: Colors.white24,
+                                                    offset: const Offset(
+                                                    5.0,
+                                                    5.0,
+                                                    ), //Offset
+                                                    blurRadius: 10.0,
+                                                    spreadRadius: 2.0,
+                                                    ), //BoxShadow
+                                                    BoxShadow(
+                                                    color: Colors.white,
+                                                    offset: const Offset(0.0, 0.0),
+                                                    blurRadius: 0.0,
+                                                    spreadRadius: 0.0,
+                                                    ),
+                                                   ] ),
+
+
+
+                                                              child: ListView(
                                                                   scrollDirection:
                                                                       Axis.vertical,
                                                                   physics:
@@ -246,118 +251,47 @@ class _ExpiredProductsState extends State<ExpiredProducts> {
                                                                     //Text(Provider.of<OccupationModel>(context).Institution!,style: TextStyle(color: Colors.black),),
                                                                     Column(children: [
                                                                       // scrollDirection: Axis.horizontal,
-                                                                      Row(
+
+
+                                                                          Padding(
+                                                                            padding: const EdgeInsets.all(8.0),
+                                                                            child: Column(
+                                                                              children: [
+                                                                                Row(
+                                                                                  mainAxisAlignment:
+                                                                                      MainAxisAlignment.spaceEvenly,
+                                                                                  children: [
+
+                                                                                    Row(
+                                                                                      children: [
+                                                                                        Text(
+                                                                                           snapshot.data?.docs[index]["ExpiryDate"] ?? "",
+                                                                                          style: TextStyle(fontSize: 30,color: Colors.black),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                      Column(
                                                                         children: [
-                                                                          // Padding(
-                                                                          //   padding:
-                                                                          //       const EdgeInsets.all(
-                                                                          //           4.0),
-                                                                          //   child:
-                                                                          //       Column(
-                                                                          //     children: [
-                                                                          //       Container(
-                                                                          //           width:
-                                                                          //               80,
-                                                                          //           height:
-                                                                          //               80,
-                                                                          //           decoration: BoxDecoration(
-                                                                          //               border: Border.all(width: 4, color: Theme.of(context).scaffoldBackgroundColor),
-                                                                          //               boxShadow: [
-                                                                          //                 BoxShadow(spreadRadius: 2, blurRadius: 10, color: Colors.black.withOpacity(0.1), offset: const Offset(0, 10))
-                                                                          //               ],
-                                                                          //               shape: BoxShape.circle,
-                                                                          //               image: const DecorationImage(
-                                                                          //                   fit: BoxFit.cover,
-                                                                          //                   image: NetworkImage(
-                                                                          //                     "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
-                                                                          //                   ))),
-                                                                          //           child: CircleAvatar(
-                                                                          //               backgroundColor: Colors.grey,
-                                                                          //               radius: 70,
-                                                                          //               backgroundImage: NetworkImage(
-                                                                          //                 item[index]['Profilepicture'] ?? "",
-                                                                          //                 //     .toString(),
-                                                                          //                 // OModel[index]
-                                                                          //                 //     .profilepicture
-                                                                          //                 //     .toString(),
-                                                                          //               ))),
-                                                                          //     ],
-                                                                          //   ),
-                                                                          // ),
-                                                                          Row(
-                                                                            children: [
-                                                                              Column(
-                                                                                mainAxisAlignment:
-                                                                                    MainAxisAlignment.spaceEvenly,
-                                                                                children: [
-                                                                                  Padding(
-                                                                                    padding:
-                                                                                        const EdgeInsets.all(3.0),
-                                                                                    child:
-                                                                                        Text(
-                                                                                      snapshot.data?.docs[index]["group"],
-                                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.brown),
-                                                                                    ),
-                                                                                  ),
-                                                                                  Column(
-                                                                                    children: [
-                                                                                      Text(
-                                                                                         snapshot.data?.docs[index]["ExpiryDate"] ?? "",
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              Column(
-                                                                                children: [
-                                                                                  Padding(
-                                                                                    padding:
-                                                                                        const EdgeInsets.all(2.0),
-                                                                                    child:
-                                                                                        Text(
-                                                                                          snapshot.data?.docs[index]["group"],
-                                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: _textColor),
-                                                                                    ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                            ],
+                                                                          Padding(
+                                                                            padding:
+                                                                            const EdgeInsets.all(2.0),
+                                                                            child:
+                                                                            Text(
+                                                                              snapshot.data?.docs[index]["group"],
+                                                                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: _textColor),
+                                                                            ),
                                                                           ),
                                                                         ],
                                                                       ),
                                                                     ])
                                                                   ]),
-                                                              children: <Widget>[
-                                                                Divider(
-                                                                  thickness: 1.0,
-                                                                  height: 1.0,
-                                                                ),
-                                                                // Align(
-                                                                //   alignment: Alignment
-                                                                //       .centerLeft,
-                                                                //   child: Padding(
-                                                                //     padding:
-                                                                //         const EdgeInsets
-                                                                //             .symmetric(
-                                                                //       horizontal: 16.0,
-                                                                //       vertical: 8.0,
-                                                                //     ),
-                                                                //     child: Text(
-                                                                //       item[index][
-                                                                //               "Description"] ??
-                                                                //           "",
-                                                                //       style: Theme.of(
-                                                                //               context)
-                                                                //           .textTheme
-                                                                //           .bodyText2
-                                                                //           ?.copyWith(
-                                                                //               fontSize:
-                                                                //                   16),
-                                                                //     ),
-                                                                //   ),
-                                                                // ),
 
-                                                              ],
                                                             ),
                                                             // child: Container(
                                                             //     margin: EdgeInsets.symmetric(

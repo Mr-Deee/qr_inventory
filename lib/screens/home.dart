@@ -110,23 +110,19 @@ print("ssssssssssss");
     return Scaffold(
       backgroundColor: const Color(0xffcae8ff),
       key: _scaffoldKey,
-      //   drawer:  IconButton(
-      //   icon: const Icon(
-      //     Icons.menu_open_sharp,
-      //     size: 30.0,
-      //   ),
-      //   onPressed: () {
-      //     _scaffoldKey.currentState!.openEndDrawer();
-      //   },
-      // ),
+
+
       appBar: AppBar(
-        backgroundColor: appBarColor,
+        backgroundColor: Color(0xffcae8ff),
         title: const Text(
           appName,
           style: TextStyle(
             fontSize: 24,
+            color: Colors.black
           ),
         ),
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Colors.black),
         actions: [
           IconButton(
               icon: const Icon(
@@ -231,7 +227,7 @@ print("ssssssssssss");
                         ),
                       ),
                       Text(
-                        "GOOD MORNING "+firstname!,
+                        "GOOD MORNING "+firstname!??"",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
 
@@ -405,83 +401,90 @@ print("ssssssssssss");
                       //     )
                       // )
                     ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: SizedBox(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: const [
-                                      SizedBox(
-                                        height: 20,
+
+
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: SizedBox(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: const [
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                      ],
+                                    ),
+                                    const Text(
+                                      "Product Groups",
+                                      style: TextStyle(
+                                        color: ColorPalette.timberGreen,
+                                        fontSize: 20,
+                                        fontFamily: "Nunito",
                                       ),
-                                    ],
-                                  ),
-                                  const Text(
-                                    "Product Groups",
-                                    style: TextStyle(
-                                      color: ColorPalette.timberGreen,
-                                      fontSize: 20,
-                                      fontFamily: "Nunito",
                                     ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  Expanded(
-                                    child: StreamBuilder(
-                                      stream: _firestore
-                                          .collection("utils")
-                                          .snapshots(),
-                                      builder: (BuildContext context,
-                                          AsyncSnapshot<
-                                              QuerySnapshot<Map<String, dynamic>>>
-                                          snapshot,) {
-                                        if (snapshot.hasData) {
-                                          final List<dynamic> _productGroups =
-                                          snapshot.data!.docs[0].data()['list']
-                                          as List<dynamic>;
-                                          _productGroups.sort();
-                                          return GridView.builder(
-                                            gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 2,
-                                              childAspectRatio: 2,
-                                              crossAxisSpacing: 20,
-                                              mainAxisSpacing: 20,
-                                            ),
-                                            itemCount: _productGroups.length,
-                                            itemBuilder: (context, index) {
-                                              return ProductGroupCard(
-                                                name:
-                                                _productGroups[index] as String,
-                                                key: UniqueKey(),
+                                    const SizedBox(height: 20),
+
+                                     Expanded(
+
+                                       child: StreamBuilder(
+                                          stream: _firestore
+                                              .collection("utils")
+                                              .snapshots(),
+                                          builder: (BuildContext context,
+                                              AsyncSnapshot<
+                                                  QuerySnapshot<Map<String, dynamic>>>
+                                              snapshot,) {
+                                            if (snapshot.hasData) {
+                                              final List<dynamic> _productGroups =
+                                              snapshot.data!.docs[0].data()['list']
+                                              as List<dynamic>;
+                                              _productGroups.sort();
+                                              return GridView.builder( shrinkWrap: true,
+                                                physics: ScrollPhysics(),
+                                                gridDelegate:
+                                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 2,
+                                                  childAspectRatio: 2,
+                                                  crossAxisSpacing: 20,
+                                                  mainAxisSpacing: 20,
+                                                ),
+                                                itemCount: _productGroups.length,
+                                                itemBuilder: (context, index) {
+                                                  return ProductGroupCard(
+                                                    name:
+                                                    _productGroups[index] as String,
+                                                    key: UniqueKey(),
+                                                  );
+                                                },
                                               );
-                                            },
-                                          );
-                                        } else {
-                                          return const Center(
-                                            child: SizedBox(
-                                              height: 40,
-                                              width: 40,
-                                              child: CircularProgressIndicator(
-                                                color: ColorPalette.pacificBlue,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                      },
-                                    ),
-                                  )
-                                ],
+                                            } else {
+                                              return const Center(
+                                                child: SizedBox(
+                                                  height: 40,
+                                                  width: 40,
+                                                  child: CircularProgressIndicator(
+                                                    color: ColorPalette.pacificBlue,
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                          },
+                                        ),
+                                     ),
+
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
+
                   ),
                 )
               ]),

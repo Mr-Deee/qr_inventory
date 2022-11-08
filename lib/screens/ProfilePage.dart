@@ -49,8 +49,8 @@ class _ProfilepageState extends State<Profilepage> {
       appBar: AppBar(
         elevation: 0,
         title: Text(
-          firstname??"" + "'s " + "Profile",
-          style: TextStyle(color:  Color(0xffcae8ff),),
+         '$firstname' "'s""  " "Profile",
+          style: TextStyle(color: Colors.black),
         ),
         backgroundColor:  Color(0xffcae8ff),
         leading: IconButton(
